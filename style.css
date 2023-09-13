@@ -1,0 +1,74 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set a background color for the body */
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Style the navigation menu */
+nav {
+  margin-top: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  margin: 0 10px;
+}
+
+/* Style the main content */
+main {
+  padding: 20px;
+}
+
+/* Style individual sections */
+section {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style section headings */
+section h2 {
+  color: #333;
+}
+
+/* Style unordered lists inside sections */
+section ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Style links in the footer */
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Style links on hover */
+a:hover {
+  text-decoration: underline;
+}
