@@ -1,0 +1,57 @@
+/* General Container Style */
+.project-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Section Styling */
+section {
+    background-color: #f5f5f5;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+section h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Paragraph Styling */
+section p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Introduction Section with Background */
+.intro {
+    background-color: #eaf2f8;
+}
+
+/* Problem Statement with Border */
+.problem-statement {
+    border-left: 5px solid #4CAF50;
+}
+
+/* Technique Section with Light Accent */
+.technique {
+    background-color: #dff9fb;
+}
+
+/* Results with Bolder Text */
+.results h2 {
+    font-weight: bold;
+    color: #006699;
+}
+
+/* Conclusion with Italic Style */
+.conclusion p {
+    font-style: italic;
+}

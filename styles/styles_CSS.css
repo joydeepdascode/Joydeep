@@ -1,0 +1,673 @@
+
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            height: 100vh; /* Set height to full viewport */
+            display: flex-end;
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px;
+            overflow-x: hidden;
+        }
+
+    /*-------------------------------------------------------------*/        
+
+        /* Optional Text/Content Styling for demonstration */
+        .content {
+            color: black;                                                
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            padding-top: 70px;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /* Navigation Bar Styles */
+        .main-nav {
+            position: fixed; /* Ensures the nav stays at the top */
+            top: 0; /* Aligns it to the top */
+            width: 100vw; /* Full width of the viewport */
+            z-index: 1000; /* Bring it to the front */
+            display: flex;
+            justify-content: flex-end;
+            background-color: #333;
+            padding: 15px 0;
+            font-family: Verdana;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-right: 20px;
+            color: #fff;
+            font-size: 18px;
+
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .main-nav li:hover {
+            color: #007BFF;
+            transform: scale(1.1);
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 5px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: #007BFF;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #36507a, #959ead);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            font-family: Times;
+            padding-top: 125px;
+            padding-bottom: 0px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-family: Arial;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /* Choose Project Header */
+        .choose_project {
+            color: #7c827e;                                                
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            padding-top: 20px;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /* Skill Tags */ 
+        .skill_tags {
+            display: flex;
+            width: 78%;
+            padding: 20px;
+            padding-left: 150px;
+            font-family: Verdana;
+            position: relative;
+        }
+
+        .skill_tags ul {
+            list-style: none;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            overflow-x: auto;  /* Enable horizontal scrolling */
+            white-space: nowrap;
+            scroll-behavior: smooth;  /* Smooth scrolling */
+            width: 90vw;  /* Set a width to limit the visible area */
+        }
+
+        .skill_tags li {
+            margin-right: 20px;
+            color: #696e6b;
+            font-size: 18px;
+            border: 1px solid black;
+            padding: 10px 8px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-block;  /* Ensure the items stay inline */
+        }
+
+        .skill_tags li:hover {
+            color: black;
+            background-color: #798fb3;
+            transform: scale(1.1);
+        }
+
+        .skill_tags a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 5px;
+            transition: color 0.3s;
+        }
+
+        .skill_tags a:hover {
+            color: #007BFF;
+        }
+
+
+        /* Scroll Buttons */
+        .scroll-left, .scroll-right {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .scroll-left {
+            left: 0;
+        }
+
+        .scroll-right {
+            right: 0;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /* Projects */ 
+
+        /* Projects Section Container */
+        .projects {
+            width: 90%;
+            padding: 20px;
+            box-sizing: border-box;
+            padding-left: 150px;
+        }
+
+    /*------------------------------------------------*/
+
+        /* Individual Project Containers */
+        .projects_container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border: 1px solid #ddd;
+            height: 200px;
+            padding: 50px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+    /*------------------------------------------------*/        
+
+        /* Image Box inside the Project Container */
+        .projects_imgbox {
+            flex: 0 0 350px; /* Initial width */
+            height: 270px;
+            overflow: hidden;
+            transition: flex 0.3s ease;
+        }
+
+        .projects_imgbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /*------------------------------------------------*/  
+
+        /* Text Box inside the Project Container */
+        .projects_textbox {
+            margin-left: 20px;
+            flex-grow: 1;
+        }
+
+    /*------------------------------------------------*/          
+
+        /* When hovering over the entire project container */
+        .projects_container:hover .projects_imgbox {
+            flex: 0 0 360px; /* Expanded width */
+        }
+
+        /* When hovering over the project container, only the image expands */
+        .projects_container:hover {
+            background-color: #fafafa;
+            border-color: #ccc;
+        }
+
+    /*------------------------------------------------*/          
+
+        /* Heading for Projects */
+        .projects_textbox h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .projects_textbox p {
+            margin-top: 10px;
+            color: #555;
+            font-family: Times;
+            font-size: 1.05em;
+        }
+
+        /* Style for skill boxes */
+        .skill-box {
+            display: inline-block;
+            background-color: #f0f0f0; /* Light gray background for skill boxes */
+            padding: 5px 10px;
+            margin-right: 5px;
+            margin-bottom: 10px; /* Vertical spacing */
+            border-radius: 5px; /* Rounded corners for the skill boxes */
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #333;
+            border: 1px solid #ccc; /* Optional border for a boxed effect */
+        }
+
+    /*-------------------------------------------------------------*/
+
+    /* Block any formatting*/
+
+        .no-style-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        }
+
+        .no-style-link:hover {
+        text-decoration: none; /* Prevents underlining on hover */
+        color: inherit; /* Keeps text color same on hover */
+        }
+
+    /*-------------------------------------------------------------*/
+
+    /* Style for the video container */
+        .video-container {
+            width: 100%;
+            max-width: 400px; /* Adjust to desired maximum width */
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ensures video fills container without padding */
+        video {
+            height: 250px;
+            width: 350px;
+            height: auto;
+            object-fit: cover; /* Ensures no black bars */
+        }
+
+    /*-------------------------------------------------------------*/
+
+    /* General Styles for Contact Section */
+        .contact-section {
+            padding: 40px;
+            background-color: #f4f4f4;  /* Light grey background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+            margin-top: 50px; /* Adds some space from the top */
+            text-align: center; /* Center the text */
+        }
+
+        .contact-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333; /* Dark color for heading */
+        }
+
+        .contact-section p {
+            font-size: 1.2em;
+            color: #666;  /* Light grey for paragraph */
+            margin-bottom: 30px;
+        }           
+
+    /*-------------------------------------------------------------*/
+
+    /* General Styles for Footer Section */        
+
+    /* Footer Styles */
+        .main-footer {
+            background-color: #333;  /* Dark background */
+            color: #f4f4f4;  /* Light text color */
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;  /* Add some space from content above */
+            position: relative;
+            bottom: 0;
+        }
+
+        .main-footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+
+        .main-footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .main-footer .footer-nav {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .main-footer .footer-nav li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .main-footer .footer-nav a {
+            color: #f4f4f4;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .main-footer .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .main-footer .footer-social {
+            margin-top: 10px;
+        }
+
+        .main-footer .footer-social a {
+            color: #4CAF50;  /* Accent color for social links */
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .main-footer .footer-social a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design for Footer */
+        @media (max-width: 768px) {
+            .main-footer {
+                padding: 20px 10px;
+            }
+
+            .main-footer .footer-nav li {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .main-footer .footer-social {
+                font-size: 1em;
+            }
+        }   
+
+    /*-------------------------------------------------------------*/
+
+    /* Style for About Me Section */  
+
+   .about_me_box {
+        background-color: #f9f9f9; /* Light grey background */
+        padding: 40px;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        max-width: 700px;
+        margin: 20px auto; /* Centered on the page */
+        text-align: center;
+    }
+
+    .about_me_box h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #333; /* Darker color for the heading */
+    }
+
+    .about_me_box p {
+        font-size: 1.1em;
+        line-height: 1.6; /* Comfortable line spacing */
+        color: #666; /* Soft grey for text */
+    }
+
+    /*------------------------------------------------------------*/
+        
+    /* Introduction Section */
+    .intro {
+        display: flex;
+        align-items: center;
+        padding: 50px 10%;
+        background: #e8f0fe;
+    }
+    .intro-text, .intro-media {
+        flex: 1;
+    }
+    .intro h1 {
+        font-size: 2.5em;
+    }
+    .intro img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* Image Box inside the Project Container */
+    .intro_vidbox {
+        flex: 0 0 350px; /* Initial width */
+        height: 270px;
+        overflow: hidden;
+        transition: flex 0.3s ease;
+    }
+
+    .intro_vidbox img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /*------------------------------------------*/
+
+    /* Problem Section */
+    .problem {
+        padding: 50px 10%;
+        background: #f9f9f9;
+    }
+    .problem h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .problem-content {
+        display: flex;
+        align-items: center;
+    }
+    .problem-text {
+        flex: 1;
+    }
+    .problem-media {
+        flex: 1;
+    }
+    .problem img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /*------------------------------------------*/
+
+
+    /* Technique Section */
+    .technique {
+        padding: 50px 10%;
+        background: #fff;
+    }
+    .technique h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .technique-content {
+        text-align: center;
+    }
+    .technique video {
+        width: 100%;
+        max-width: 600px;
+        margin-top: 20px;
+    }
+
+    /*------------------------------------------*/
+    
+    /* Results Section */
+    .results {
+        padding: 50px 10%;
+        background: #e8f0fe;
+    }
+    .results h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .results-gallery {
+        display: flex;
+        justify-content: space-between;
+    }
+    .results-gallery img {
+        width: 30%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /*------------------------------------------*/
+
+    /* Conclusion Section */
+    .conclusion {
+        padding: 50px 10%;
+        background: #f9f9f9;
+        text-align: center;
+    }
+    .conclusion h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+
+    /*------------------------------------------------------------*/
+
+
+    /* Introduction Section */
+    .alt-intro {
+        display: flex;
+        padding: 60px 10%;
+        background-color: #e0eafc;
+    }
+    .alt-intro-text {
+        flex: 1;
+        padding-right: 20px;
+    }
+    .alt-intro h1 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+    .alt-intro p {
+        font-size: 1.1em;
+    }
+    .alt-intro-media {
+        flex: 1;
+    }
+    .alt-intro video {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    /* Objective Section */
+    .alt-objective {
+        padding: 50px 10%;
+        background-color: #f0f0f0;
+    }
+    .alt-objective h2 {
+        font-size: 2.2em;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .alt-objective-content {
+        display: flex;
+        align-items: center;
+    }
+    .alt-objective-media, .alt-objective-text {
+        flex: 1;
+    }
+    .alt-objective img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+    .alt-objective-text {
+        font-size: 1.1em;
+    }
+
+    /* Methods Section */
+    .alt-methods {
+        padding: 50px 10%;
+        background-color: #ffffff;
+    }
+    .alt-methods h2 {
+        font-size: 2.2em;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .alt-methods-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .alt-methods-text {
+        flex: 1;
+        padding-right: 20px;
+        font-size: 1.1em;
+    }
+    .alt-methods video {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 10px;
+    }
+
+    /* Results Section */
+    .alt-results {
+        padding: 50px 10%;
+        background-color: #e0eafc;
+    }
+    .alt-results h2 {
+        font-size: 2.2em;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .alt-results-content {
+        display: flex;
+        justify-content: center;
+    }
+    .alt-results-gallery {
+        display: flex;
+        gap: 15px;
+    }
+    .alt-results-gallery img {
+        width: 30%;
+        border-radius: 10px;
+        height: auto;
+    }
+
+    /* Conclusion Section */
+    .alt-conclusion {
+        padding: 50px 10%;
+        background-color: #f0f0f0;
+        text-align: center;
+    }
+    .alt-conclusion h2 {
+        font-size: 2.2em;
+        margin-bottom: 20px;
+    }
+
+
+    /*------------------------------------------------------------*/    
+

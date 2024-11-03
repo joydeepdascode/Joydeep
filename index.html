@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles/styles_CSS.css"> <!-- Link to the external CSS file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------- -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#top">Home \( (\alpha) \)</a></li>
+            <li><a href="about_me.html">About_Me \( (\beta) \)</a></li>
+            <li><a href="publications/neural_g2c3.html">Publications \( (\zeta) \)</a></li> 
+            <li><a href="#contact">Contact \( (\gamma) \)</a></li>
+        </ul>
+    </nav>
+
+<!-- ------------------------------------------------------------------- -->
+    <div id="top"></div>    
+
+    <div class="hero">                                        
+        <h1>Welcome to My Portfolio</h1>                    
+        <p>Showcasing my work, skills, and passion.</p>
+    </div>
+
+<!-- ------------------------------------------------------------------- -->
+    
+    <div class="choose_project">                                        
+        ..Choose Project Category based on the following categories used in 
+        it..
+    </div>
+
+<!-- ------------------------------------------------------------------- -->
+
+    <div class="skill_tags">
+        <ul>
+            <li data-tag="physics">Physics</li>            
+            <li data-tag="research">Research</li>
+            <!-- <li data-tag="pro_manage">Project Management</li>             -->
+            <li data-tag="hpc">Supercomputing(HPC)</li>            
+            <li data-tag="python">Python</li>
+            <li data-tag="fortran">Fortran</li>       
+            <li data-tag="MATLAB">MATLAB</li>     
+            <li data-tag="latex">LaTeX</li>     
+            <!-- <li data-tag="ml_skill">Machine Learning</li> -->
+            <!-- <li data-tag="ai_skill">Artificial Intelligence</li> -->
+            <!-- <li data-tag="software_dev">Software Development</li> -->
+            <!-- <li data-tag="github">Github</li> -->
+            <!-- <li data-tag="sys_admin">System Administration</li> -->
+            <!-- <li data-tag="comp_arch">Computer Architecture</li> -->
+            <li data-tag="version_control_git">Version Control: Git</li>
+        </ul>
+    </div>
+    
+
+<!-- ------------------------------------------------------------------- -->
+
+    <!-- Projects Section Container -->
+    <div class="projects">
+
+        <!-- Project 1 -->
+        <a href="projects/eq_ptg.html" class="no-style-link">
+        <div class="projects_container" data-tags="physics hpc research fortran python 
+        git latex version_control_git">
+            <div class="projects_imgbox">
+                <video autoplay muted loop>
+                    <source src="media/file10001-0090.mp4" type="video/mp4">
+                </video>
+                <!-- <img src="media/0001-0090.mp4" alt="Project 1 Image"> -->
+            </div>
+            <div class="projects_textbox">
+                <h2>Study of equilibrium properties of Aditya-U Tokamak and DIII-D Tokamak</h2>
+                <p>A python based interface is written, to
+                initially read the EFIT file from Aditya-U, and visualize 
+                the limiter boundaries, last closed magnetic flux surface. 
+                Magnetic Flux surfaces are generated using Euler-Method of 
+                integration which is eventually used for simulation grids construction on 
+                top of the flux surface contours in a chosen poloidal plane.</p>            
+                <p>Skills: 
+                    <span class="skill-box">Particle-In-Cell(PIC)</span>
+                    <span class="skill-box">Physics</span>  
+                    <span class="skill-box">Research</span>
+                    <span class="skill-box">Supercomputing(HPC)</span>
+                    <span class="skill-box">Python</span>
+                    <span class="skill-box">Fortran</span>
+                    <span class="skill-box">LaTeX</span>
+                    <span class="skill-box">GitHub</span>
+                    <span class="skill-box">Version Control: Git</span>
+                    <span class="skill-box">Overleaf</span>
+                </p>
+            </div>
+        </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="projects/mol_theta.html" class="no-style-link">
+        <div class="projects_container" data-tags="python MATLAB git physics research latex version_control_git">
+            <div class="projects_imgbox">
+                <img src="media/Rg2T.png" alt="Project 2 Image">
+            </div>
+            <div class="projects_textbox">
+                <h2>Molecular Dynamics Simulation of a coarse-grained linear polymer chain 
+                model under varying conditions; and estimation of the θ-solvent of the 
+                model</h2>
+                <p>Polymers are collections of monomers, each made up of atoms and 
+                molecules, displaying complex properties when in a solvent. A key 
+                property is when a polymer behaves like an ideal chain, leading to the 
+                concept of a θ-solvent, where simulations of coarse-grained linear polymer 
+                chains help estimate this behavior under various conditions.</p>
+                <p>Skills: 
+                    <span class="skill-box">LAMMPS</span>
+                    <span class="skill-box">Physics</span>
+                    <span class="skill-box">Research</span>
+                    <span class="skill-box">Python</span>
+                    <span class="skill-box">MATLAB</span>   
+                    <span class="skill-box">LaTeX</span>
+                    <span class="skill-box">Version Control: Git</span>
+                    <span class="skill-box">Overleaf</span>
+                </p>
+            </div>
+        </div>
+        </a>
+
+        <!-- Project 3 -->
+        <a href="projects/mol_coil.html" class="no-style-link">
+        <div class="projects_container" data-tags="fortran git physics research latex version_control_git">
+            <div class="projects_imgbox">
+                <img src="media/mol_coil1E.png" alt="Project 2 Image">
+            </div>
+            <div class="projects_textbox">
+                <h2>Review on the dynamics and coil-globule phase transition of 
+                single-stranded polymers in two dimensions</h2>
+                <p>Research on polymers, which began in the 19th century, 
+                underscores their significance in daily materials. Understanding 
+                polymer dynamics is essential due to its extensive applications 
+                in science and technology. This study explores both theoretical 
+                and experimental perspectives, focusing on Brownian motion, 
+                ideal chain dynamics, and temperature-induced coil-globule 
+                transitions. The final chapter provides a summary of the key 
+                findings.</p>
+                <p>Skills: 
+                    <span class="skill-box">Physics</span>
+                    <span class="skill-box">Research</span>
+                    <span class="skill-box">Fortran</span>
+                    <span class="skill-box">LaTeX</span>
+                    <span class="skill-box">Version Control: Git</span>
+                </p>
+            </div>
+        </div>
+        </a>
+
+        <!-- Project 4 -->
+        <a href="projects/penrose.html" class="no-style-link">
+        <div class="projects_container" data-tags="physics research latex">
+            <div class="projects_imgbox">
+                <img src="media/FIG2E.png" alt="Project 2 Image">
+            </div>
+            <div class="projects_textbox">
+                <h2>A Conformal Treatment of Minkowski and Schwarzschild Spacetime</h2>
+                <p>A brief introduction to physical spacetimes such as Minkowski 
+                and Schwarzschild is presented initially. This is followed by a 
+                conformal mapping of these spacetimes to explore their asymptotic 
+                properties. Lastly, the resulting compact structure from the mapping 
+                is discussed. Figure on left taken from  Penrose R. General Relativity 
+                and Gravitation, 03 2011</p>
+                <p>Skills: 
+                    <span class="skill-box">General Relativity</span>
+                    <span class="skill-box">Physics</span>
+                    <span class="skill-box">Research</span>
+                    <span class="skill-box">LaTeX</span>
+                    <span class="skill-box">Overleaf</span>
+                </p>
+            </div>
+        </div>
+        </a>        
+
+        <!-- Project 5 -->
+        <a href="projects/larmor1.html" class="no-style-link">        
+        <div class="projects_container" data-tags="physics research">
+            <div class="projects_imgbox">
+                <img src="media/larmor1E.png" alt="Project 2 Image">
+            </div>
+            <div class="projects_textbox">
+                <h2>Larmor’s Formula and its Application to cyclotron emission</h2>
+                <p>Larmor's approach to the relationship between moving charged 
+                particles and the radiation they emit is introduced. The derivation 
+                of Larmor's formula using electromagnetic potential is presented. 
+                Finally, the application of Larmor's principle to the concept of 
+                cyclotron and its scientific and industrial implications is discussed.</p>
+                <p>Skills: 
+                    <span class="skill-box">Electromagnetic Theory</span>
+                    <span class="skill-box">Physics</span>
+                    <span class="skill-box">Research</span>
+                </p>
+            </div>
+        </div>
+        </a>
+
+        <!-- Add more project containers as needed -->
+    </div>
+
+<!-- ------------------------------------------------------------------- -->
+
+    <div id="contact" class="contact-section">
+        <h2>Contact Me</h2>
+        <p>I would love to hear from you! Please fill out the form below to get in touch.</p>
+
+        <!-- Google Form Embed -->
+        <div class="google-form-container">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeEwf9iYuusEPGVZkxkaj04KUTESE2GXHC50WTeKvHpHJ5z9w/viewform?embedded=true" width="640" height="821" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            <!-- <iframe width="640px" height="640px" src="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAEH5eA1UMkxDV1k2QUJXNkQ4NzEzUzdCMk1CM0JRSS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe> -->
+        </div>
+    </div>
+
+
+<!-- ------------------------------------------------------------------- -->        
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>© 2024 Joydeep Das. Feel free to share with attribution.</p>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/--joydeep—das" target="_blank">LinkedIn</a> |
+                <a href="https://github.com/joydeepdascode" target="_blank">GitHub</a> |
+                <a href="https://www.instagram.com/_.joydeep._das/" target="_blank">Instagram</a> 
+                <!-- <a href="https://twitter.com/joydeepdas" target="_blank">Twitter</a> -->
+            </div>
+        </div>
+    </footer>
+
+<!-- ------------------------------------------------------------------- -->      
+
+    <!-- Link to external JavaScript file -->
+    <script src="scripts/script_JS.js"></script> 
+
+</body>
+</html>
