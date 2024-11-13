@@ -29,6 +29,206 @@
 
 <!-- ------------------------------------------------------------------- -->
 
+<!-- Introduction Section -->
+<section class="intro">
+    <div class="intro-text">
+        <h1>Introduction</h1>
+        <p>This work presents a conformal approach to representing infinite 
+           regions of spacetime, focusing on Minkowski and Schwarzschild 
+           spacetimes. By using conformal mapping, we aim to visualize and 
+           explore the entirety of these spacetime structures within finite 
+           boundaries while preserving their causal relationships. Such a 
+           visualization helps not only in understanding spacetime at infinity 
+           but also in studying trajectories, null geodesics, and event 
+           horizons in a more comprehensive manner. Our study contributes to 
+           the broader goal of constructing diagrams that allow us to represent 
+           infinities compactly, facilitating a better understanding of 
+           complex spacetime geometries.</div>
+        <!-- <div class="intro-media"> -->
+            <!-- <img src="https://example.com/intro-image.jpg" alt="Tokamak Image"> -->
+        <!-- </div> -->
+        <!-- <div class="intro_vidbox">
+            <video autoplay muted loop>
+                <source src="../media/file10001-0090.mp4" type="video/mp4">
+            </video>
+        </div> -->
+
+</section>
+
+<!-- Problem Statement Section -->
+<section class="problem">
+    <h2>Penrose Diagram (A Brief Introduction)</h2>
+
+    <h3>2.a Motivation Behind the Penrose Diagram</h3>
+    <div class="problem-content">
+        <div class="problem-text">
+            <p>
+                In the early 1960s, the Penrose diagram, originally introduced 
+                by Roger Penrose and republished in 2011 as "Conformal Treatment 
+                of Infinity," aimed to address a unique challenge: representing 
+                infinite spacetime on a finite plane. This approach was 
+                particularly relevant for analyzing Minkowski spacetime, where 
+                both time and spatial dimensions extend to infinity.
+                <p>
+                Consider a particle moving along an infinite trajectory from past 
+                to future and from negative to positive spatial infinity. 
+                Depicting this complete trajectory on a finite diagram without 
+                information loss is impossible using traditional representations. 
+                Thus, the problem arose of how to "compactify" infinity within a 
+                finite structure.
+            </p>
+        </div>
+    </div>
+
+    <h3>2.b The Challenge and Approach to Solution</h3>
+    <div class="problem-content">
+        <div class="problem-text">
+            <p>
+                Achieving a complete picture of infinity in finite form requires 
+                ensuring that no significant information is lost during compactification. 
+                The Penrose diagram addresses this by applying a conformal 
+                transformation, mapping a physical manifold, such as Minkowski 
+                spacetime, to an "unphysical" manifold. This transformation results in 
+                a finite boundary in the unphysical manifold corresponding to the 
+                infinite extent of the physical spacetime.
+                <p>
+                For Minkowski spacetime, the conformal factor, denoted Ω, approaches 
+                zero at the boundary of the unphysical manifold. By introducing null 
+                coordinates, we effectively achieve a representation where causal 
+                relationships remain intact, capturing the essential features of 
+                spacetime within finite bounds.
+            </p>
+        </div>
+    </div>
+    
+    <h3>2.c Diagram Formulation</h3>
+    <div class="problem-content">
+        <div class="problem-text">
+            <p>
+                The transformation from null coordinates 𝑢 and 𝑣 to compactified 
+                coordinates achieves this compactification. Starting with the 
+                Minkowski metric:
+                <p>
+                \[ ds_0^2 = dt^2 - dr^2 -r^2(d\theta^2 + sin^2 \theta . d\phi^2) \]
+                
+                we perform a coordinate transformation to arrive at a metric suitable for compactification:
+                <p>
+                \[ ds^2 = dpdq - \frac{1}{4}sin^2(p-q)(d\theta^2 + sin^2 \theta . d\phi^2) \]
+                where 𝑝 and 𝑞 are bounded and the conformal factor Ω becomes zero 
+                on the boundary. This approach gives a finite representation of infinity, 
+                facilitating a complete and accurate representation of null geodesics and causal structure.
+            </p>
+        </div>
+    </div>    
+
+        <!-- <div>
+            <p>Equlibrium Magnetic Field and its covariant components are given by:</p>
+            <p>\[ \vec{B} = \nabla \psi (R,Z) \times \nabla \zeta + \frac{F(\psi)}{R} \mathop \zeta\limits^ \wedge  \]</p>
+        
+            <p>\[{B_R} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial Z}};{B_Z} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial R}};{B_\zeta } = \frac{{F(\psi )}}{R};\]</p>
+        </div> -->
+        <!-- <div class="problem-media">
+            <img src="https://example.com/problem-image.jpg" alt="Problem Diagram">
+        </div> -->
+</section>
+
+
+<!-- Technique Section -->
+<section class="technique">
+    <h2>Schwarzschild Spacetime</h2>
+    
+    <h3>3.a Motivation for Studying Schwarzschild Spacetime</h3>
+    <div class="technique-content">
+        <p>
+            The Schwarzschild solution to Einstein's field equations is a 
+            key concept in understanding black hole physics, as it describes the 
+            spacetime surrounding a spherically symmetric mass. This spacetime 
+            geometry is asymptotically flat, resembling Minkowski space at 
+            infinity, and introduces new challenges near the event horizon, 
+            where conventional coordinates fail to represent the full 
+            structure without encountering singularities.
+        </p>
+    </div>
+
+    <h3>3.b Key Results and Challenges</h3>
+    <div class="technique-content">
+        <p>
+            For Schwarzschild spacetime, the line element is given by:
+            <p>
+            \[ ds^2 = \left( 1 - \frac{2GM}{r} \right)dt^2 - \left( 1 - \frac{2GM}{r} \right)^{-1} dr^2 - r^2.d\Omega^2    \]
+            where 𝑟 = 2𝐺𝑀 denotes the event horizon, introducing a coordinate 
+            singularity. To resolve this, we perform a coordinate 
+            transformation, defining the tortoise coordinate 𝑟∗, which 
+            extends 𝑟 beyond the event horizon, followed by null coordinates 
+            𝑢 and 𝑣. This transformation facilitates a more comprehensive 
+            analysis of both black holes (Region II) and white holes (Region III).
+        </p>
+    </div>
+    
+    <h3>3.c Applying the Penrose Diagram to Schwarzschild Spacetime</h3>
+    <div class="technique-content">
+        <p>
+            To visualize Schwarzschild spacetime in a finite representation, 
+            we apply further transformations similar to those used in Minkowski 
+            spacetime, resulting in a finite, bounded diagram that accurately 
+            represents the entire Schwarzschild manifold. This conformal approach, 
+            introduced by Kruskal and Szekeres, maps the infinite 𝑡-𝑟 coordinates 
+            to finite 𝑇-𝑋 coordinates, avoiding the singularity at 𝑟=2𝐺𝑀 and 
+            preserving causal structures across regions.
+        </p>
+    </div>    
+
+</section>
+
+<!-- Discussion Section -->
+<section class="problem">
+    <h2>Discussion</h2>
+
+    <h3>4.a General Applicability of Conformal Mapping</h3>
+    <div class="problem-content">
+        <div class="problem-text">
+            <p>
+                The conformal mapping technique used in this work is 
+                not universally applicable to all spacetime geometries 
+                but is effective for spacetimes where a differentiable boundary
+                can be established. In Minkowski and Schwarzschild spacetimes, 
+                the technique preserves the causal structure while 
+                compactifying infinity within a finite boundary.
+            </p>
+        </div>
+    </div> 
+
+    <h3>4.b Constraints and Limitations</h3>
+    <div class="problem-content">
+        <div class="problem-text">
+            <p>
+                In applying conformal transformations to general manifolds, 
+                it is essential that the manifold and metric tensor satisfy sufficient 
+                differentiability. Additionally, the conformal factor Ω must vanish 
+                at the boundary without introducing discontinuities. In cases 
+                where null geodesics originate and terminate at the boundary, 
+                this approach provides a coherent and finite representation of spacetime, 
+                allowing for a complete understanding of causal relationships and 
+                asymptotic behavior.
+            </p>
+        </div>
+    </div> 
+
+</section>
+
+
+<!-- Conclusion Section -->
+<section class="technique">
+    <h2>Conclusion and Future Outlook</h2>
+    <p> By utilizing conformal mapping, we achieve a finite, accurate 
+        representation of both Minkowski and Schwarzschild spacetimes. 
+        This approach offers insights into causal structures, event 
+        horizons, and null geodesics, facilitating a more complete 
+        understanding of spacetime geometries at infinity.</p>
+</section>
+
+<!-- ------------------------------------------------------------------- -->
+
     <!-- Footer Section -->
     <footer class="main-footer">
         <div class="footer-content">
