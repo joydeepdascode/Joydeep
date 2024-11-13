@@ -26,7 +26,6 @@
                 model under varying conditions; and estimation of the θ-solvent of the 
                 model</h1>    
         <p><a href="https://github.com/joydeepdascode/ideal_chain_polymer_lammps">[GitHub Link]</a></p>
-        <p>...Currently Web-Page is in update...</p>
     </div>
 
 <!-- ------------------------------------------------------------------- -->
@@ -34,22 +33,19 @@
 <!-- Introduction Section -->
 <section class="intro">
     <div class="intro-text">
-        <h1>DIII-D and Aditya-U Tokamak Equilibrium Study</h1>
-        <p>In addition to solids, liquids, and gases, plasma-filled particles dominate the 
-           state universe, especially in stars. Generally, challenged by particle recombination, 
-           plasma stability can be maintained at high temperatures as described by the Saha 
-           equation. This stable plasma state is essential for fusion reactions, studied in 
-           devices called tokamaks, which limit the plasma to the temperature needed to fuse. 
-           Aditya-u Tokamak in India and DIII-D in the USA are notable examples.</p>
+        <h1>Introduction</h1>
+        <p>Polymers are collections of monomers, each of which is composed 
+           of atoms and molecules. Polymers in solvents exhibit complex 
+           properties, one of which behaves like a 'model chain', such as how a real gas can behave like an ideal gas under certain conditions This model chain behavior of polymer solutions in this can explore interesting properties such as solubility in polymer-solvent systems The use of simulations of kinematics.</p>
     </div>
     <!-- <div class="intro-media"> -->
         <!-- <img src="https://example.com/intro-image.jpg" alt="Tokamak Image"> -->
     <!-- </div> -->
-    <div class="intro_vidbox">
+    <!-- <div class="intro_vidbox">
         <video autoplay muted loop>
             <source src="../media/file10001-0090.mp4" type="video/mp4">
         </video>
-    </div>
+    </div> -->
 
 </section>
 
@@ -58,21 +54,28 @@
     <h2>Problem Statement</h2>
     <div class="problem-content">
         <div class="problem-text">
-            <p>Due to the accumulated errors in the Euler method, the grid points 
-               deviate from the desired flux surfaces, causing errors in the stability of the 
-               magnetic field geometry A robust method is needed to ensure renewal 
-               The (R,Z) coordinates remain on the same flow surface, allowing for a 
-               more accurate and robust mesh representation. This optimized mesh can then be 
-               successfully used in particle dynamics simulations, providing higher resolution 
-               than standard equilibrium solvers. Addressing this issue could improve the 
-               investigation of particle tracking and confinement in plasma physics.</p>
+            <p>
+                The project aims to simulate a coarse-grained linear polymer model 
+                in an implicit solvent to analyze the behavior of the mean-squared 
+                radius of gyration, <i>R<sub>g</sub><sup>2</sup></i>, under 
+                varying conditions of temperature and viscous forces. By 
+                systematically adjusting these parameters, the simulation seeks to 
+                identify the polymer system's <i>θ</i>-point. The approach 
+                leverages the fact that in a coarse-grained polymer model with 
+                <i>N</i> beads per chain, plotting <i>R<sub>g</sub><sup>2</sup></i> 
+                against temperature or damping coefficient for different <i>N</i> 
+                values will yield curves that intersect at the <i>θ</i>-point. 
+                This point represents the polymer's critical solubility behavior, 
+                providing insight into the thermodynamic properties of polymer 
+                solutions in various solvents.
+            </p>
         </div>
-        <div>
+        <!-- <div>
             <p>Equlibrium Magnetic Field and its covariant components are given by:</p>
             <p>\[ \vec{B} = \nabla \psi (R,Z) \times \nabla \zeta + \frac{F(\psi)}{R} \mathop \zeta\limits^ \wedge  \]</p>
         
             <p>\[{B_R} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial Z}};{B_Z} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial R}};{B_\zeta } = \frac{{F(\psi )}}{R};\]</p>
-        </div>
+        </div> -->
         <!-- <div class="problem-media">
             <img src="https://example.com/problem-image.jpg" alt="Problem Diagram">
         </div> -->
@@ -81,67 +84,51 @@
 
 <!-- Technique Section -->
 <section class="technique">
-    <h2>Techniques Used</h2>
+    <h2>Techniques and Tools Used</h2>
     <div class="technique-content">
-        <p>   
-            <ul>
-                <li><strong>Modified Euler’s Method or Higher-Order Integration:</strong>
-                    <p>Employ a higher-order integration method, such as Runge-Kutta, to reduce error accumulation in grid mapping.</p>
-                </li>
-                <li><strong>Flux Surface Correction Algorithm:</strong>
-                    <p>Develop or implement an algorithm to iteratively adjust (<em>R, Z</em>) coordinates to remain on the same flux surface, using boundary conditions or constraints based on flux function evaluations.</p>
-                </li>
-                <li><strong>Gradient-Based Correction:</strong>
-                    <p>Use gradient-based techniques (e.g., finite difference methods) to correct for drift in flux values, maintaining the correct flux surface alignment of each grid point.</p>
-                </li>
-                <li><strong>Density-Optimized Grid Generation:</strong>
-                    <p>Create adaptive or denser grids in critical regions, such as near magnetic axis points, where particle dynamics require higher precision.</p>
-                </li>
-                <li><strong>Interpolation or Re-meshing Techniques:</strong>
-                    <p>Apply interpolation methods (e.g., spline, linear) or re-meshing for redistributing grid points across flux surfaces more effectively, maintaining density in areas of high field gradient.</p>
-                </li>
-            </ul>
-        
-            <h2>Tools:</h2>
-            <ul>
-                <li><strong>Numerical Libraries:</strong>
-                    <p><em>SciPy</em> (Python) or <em>MATLAB</em> for advanced numerical methods, including Runge-Kutta integration and interpolation techniques.</p>
-                </li>
-                <li><strong>Visualization Tools:</strong>
-                    <p><em>Matplotlib</em> (Python) or <em>ParaView</em> for visualizing grid alignment with flux surfaces and observing any drift in (<em>R, Z</em>) coordinates over time.</p>
-                </li>
-                <li><strong>Parallel Computing Tools:</strong>
-                    <p><em>OpenMP</em> or <em>MPI</em> to optimize computational load when refining or redistributing dense grids for large-scale simulations.</p>
-                </li>
-                <li><strong>Fortran Simulation Codes:</strong>
-                    <p>Implement the solution in plasma simulation codes written in <em>Fortran</em> if working with tools like <em>GTC</em> or other PIC-based particle simulation models to maintain compatibility with existing frameworks.</p>
-                </li>
-                <li><strong>Equilibrium Solvers:</strong>
-                    <p>Use equilibrium solvers like <em>VMEC</em> or <em>EFIT</em> to provide baseline flux surfaces for initial conditions or comparisons when validating grid corrections.</p>
-                </li>
-            </ul>
-        </p>
+        <p>
+        <ul>
+            <li><strong>Simulation Tool:</strong> LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator)</li><p>
+            <li><strong>Model Used:</strong> Coarse-grained linear model of polymer chains (bead-spring model)</li><p>
+            <li><strong>Interaction Potentials:</strong><p>
+                <ul>
+                    <li>FENE potential (Finite extensible nonlinear elastic) for bonded interactions</li><p>
+                    <li>Lennard-Jones potential for non-bonded interactions</li><p>
+                </ul>
+            </li>
+            <li><strong>Unit System:</strong> Reduced units (dimensionless quantities)</li><p>
+            <li><strong>Configuration Generation:</strong> Python script for initial simulation setup</li><p>
+            <li><strong>Coordinate System:</strong> (y,z) coordinates for polymer chain positioning, parallel to the x-axis</li><p>
+        </ul>
         <!-- <div class="technique-media">
             <video controls>
                 <source src="https://example.com/technique-video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div> -->
+        <div class="results-gallery">
+            <img src="../media/mol_theta_input.png" width="500" height="400" alt="Molecular Theta Input">
+        </div>        
+        </p>
     </div>
 </section>
 
 <!-- Results Section -->
-<!-- <section class="results">
+<section class="results">
     <h2>Results</h2>
-    <div class="results-content">
-        <p>The simulation results indicated significant improvements in the understanding of plasma equilibrium properties within the tokamak, leading to more stable confinement conditions.</p>
+        <p>The 𝜃-temperature as can be vaguely observed comes in between 1.0 to 2.0, and the damping coefficient for 𝜃-point is in between 0.6 to 1.0 this values represents as stated earlier a point were in the model of polymer chain so taken would have its attraction and repulsion interactions between all its interaction sites to be negligible, thereby behaving like an ideal chain polymer.
+            The above result can again be utilized in some other fashion.
+            If we assume this simulation model for both the polymer chains and solvent to be a mimic of an actual system with viscous force same as this one and the molar mass of polymer same as this one, then on comparing the Ideal chain Radius of gyration of that system with this simulation model one gets a room for improvement for the polymer model used in this simulation.
+            
+            </p>
         <div class="results-gallery">
-            <img src="https://example.com/result1.jpg" alt="Result 1">
-            <img src="https://example.com/result2.jpg" alt="Result 2">
-            <img src="https://example.com/result3.jpg" alt="Result 3">
+            <img src="../media/molthe1.png" alt="Result 1">
+            <img src="../media/molthe2.png" alt="Result 2">
+            <img src="../media/molthe3.png" alt="Result 3"><p>
+            <img src="../media/molthe4.png" alt="Result 4">
         </div>
-    </div>
-</section> -->
+</section>
+
 
 <!-- Conclusion Section -->
 <section class="conclusion">
