@@ -433,245 +433,345 @@
     }
 
     /*------------------------------------------------------------*/
-/* Introduction Section */
-.intro {
-    display: flex;
-    padding: 50px 10%;
-    background: #e8f0fe;
-}
-.intro h1 {
-    font-size: 2.5em;
-    color: #333;
-}
-.intro p {
-    line-height: 1.6;
-    color: #555;
-}
+    /* Introduction Section */
+    .intro {
+        display: flex;
+        padding: 50px 10%;
+        background: #e8f0fe;
+    }
+    .intro h1 {
+        font-size: 2.5em;
+        color: #333;
+    }
+    .intro p {
+        line-height: 1.6;
+        color: #555;
+    }
 
-/* Problem Section */
-.problem {
-    padding: 50px 10%;
-    background: #f9f9f9;
-}
-.problem h2 {
-    font-size: 2em;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-.problem-content p {
-    color: #555;
-    line-height: 1.6;
-}
+    /* Problem Section */
+    .problem {
+        padding: 50px 10%;
+        background: #f9f9f9;
+    }
+    .problem h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .problem-content p {
+        color: #555;
+        line-height: 1.6;
+    }
 
-/* Technique Section */
-.technique {
-    padding: 50px 10%;
-    background: #fff;
-}
-.technique h2 {
-    font-size: 2em;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-.technique-content ul {
-    list-style-type: disc;
-    margin-left: 20px;
-    color: #555;
-}
+    /* Technique Section */
+    .technique {
+        padding: 50px 10%;
+        background: #fff;
+    }
+    .technique h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .technique-content ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        color: #555;
+    }
 
-/* Results Section */
-.results {
-    padding: 50px 10%;
-    background: #e8f0fe;
-    text-align: center;
-}
-.results h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
-}
-.results p {
-    color: #555;
-    line-height: 1.6;
-}
-.results-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
-.results-gallery img {
-    width: 30%;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-.results-gallery img:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-}
+    /* Results Section */
+    .results {
+        padding: 50px 10%;
+        background: #e8f0fe;
+        text-align: center;
+    }
+    .results h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .results p {
+        color: #555;
+        line-height: 1.6;
+    }
+    .results-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .results-gallery img {
+        width: 30%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+    .results-gallery img:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+    }
 
 
 
-/* Conclusion Section */
-.conclusion {
-    padding: 50px 10%;
-    background: #f9f9f9;
-    text-align: center;
-}
-.conclusion h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
-}
-.conclusion p {
-    color: #555;
-    line-height: 1.6;
-}
+    /* Conclusion Section */
+    .conclusion {
+        padding: 50px 10%;
+        background: #f9f9f9;
+        text-align: center;
+    }
+    .conclusion h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .conclusion p {
+        color: #555;
+        line-height: 1.6;
+    }
 
     /*------------------------------------------------------------*/
 
-/*------------------------------------------------------------*/
+    /*------------------------------------------------------------*/
 
-/* Introduction Section */
-.alt-intro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 60px 10%;
-    background: linear-gradient(135deg, #d3e2f3, #eaf1fc);
-    color: #333;
-}
-.alt-intro h1 {
-    font-size: 2.7em;
-    margin-bottom: 10px;
-}
-.alt-intro p {
-    font-size: 1.1em;
-    line-height: 1.7;
-    max-width: 800px;
-    text-align: center;
-    color: #555;
-}
-.alt-intro img {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 30px;
-    border-radius: 10px;
-}
+    /* Introduction Section */
+    .alt-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 10%;
+        background: linear-gradient(135deg, #d3e2f3, #eaf1fc);
+        color: #333;
+    }
+    .alt-intro h1 {
+        font-size: 2.7em;
+        margin-bottom: 10px;    
+    }
+    .alt-intro p {
+        font-size: 1.1em;
+        line-height: 1.7;
+        max-width: 800px;
+        text-align: center;
+        color: #555;
+    }
+    .alt-intro img {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 30px;
+        border-radius: 10px;
+    }
 
-/* Objective Section */
-.alt-objective {
-    padding: 60px 10%;
-    background-color: #f5f8fc;
-    color: #333;
-}
-.alt-objective h2 {
-    font-size: 2.4em;
-    text-align: center;
-    margin-bottom: 25px;
-}
-.alt-objective-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-.alt-objective img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-.alt-objective img:hover {
-    transform: scale(1.05);
-}
-.alt-objective-text {
-    font-size: 1.15em;
-    max-width: 500px;
-    text-align: justify;
-}
+        
+    /* Research Objective Section Styling */
+    .objective {
+        background-color: #f9f9f9;
+        padding: 30px 20px;
+        margin: 20px 0;
+    }
 
-/* Methods Section */
-.alt-methods {
-    padding: 60px 10%;
-    background: linear-gradient(135deg, #ffffff, #f9f9f9);
-}
-.alt-methods h2 {
-    font-size: 2.4em;
-    text-align: center;
-    margin-bottom: 25px;
-}
-.alt-methods-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.alt-methods-text {
-    max-width: 700px;
-    text-align: center;
-    font-size: 1.1em;
-    color: #555;
-}
-.alt-methods video {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 10px;
-    margin-top: 25px;
-}
+    .objective h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
 
-/* Results Section */
-.alt-results {
-    padding: 60px 10%;
-    background-color: #eaf3fc;
-    text-align: center;
-}
-.alt-results h2 {
-    font-size: 2.4em;
-    color: #333;
-    margin-bottom: 30px;
-}
-.alt-results p {
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 20px;
-}
-.alt-results-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-}
-.alt-results-gallery img {
-    width: calc(33% - 10px);
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-.alt-results-gallery img:hover {
-    transform: scale(1.05);
-}
+    .objective-content {
+        display: flex;
+        justify-content: space-between;
+    }
 
-/* Conclusion Section */
-.alt-conclusion {
-    padding: 60px 10%;
-    background: linear-gradient(135deg, #f3f3f3, #f9f9f9);
-    text-align: center;
-}
-.alt-conclusion h2 {
-    font-size: 2.4em;
-    margin-bottom: 20px;
-    color: #333;
-}
-.alt-conclusion p {
-    font-size: 1.15em;
-    color: #555;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
+    .objective-text p {
+        max-width: 600px;
+    }
+
+    /* Methods Section Styling */
+    .methods {
+        background-color: #ffffff;
+        padding: 30px 20px;
+        margin: 20px 0;
+    }
+
+    .methods h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .methods-content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .methods-text p {
+        max-width: 600px;
+    }
+
+    /* Results Section */
+    .alt-results {
+        padding: 60px 10%;
+        background-color: #eaf3fc;
+        text-align: center;
+    }
+    .alt-results h2 {
+        font-size: 2.4em;
+        color: #333;
+        margin-bottom: 30px;
+    }
+    .alt-results p {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 20px;
+    }
+    .alt-results-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    .alt-results-gallery img {
+        width: calc(33% - 10px);
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+    .alt-results-gallery img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Conclusion Section */
+    .alt-conclusion {
+        padding: 60px 10%;
+        background: linear-gradient(135deg, #f3f3f3, #f9f9f9);
+        text-align: center;
+    }
+    .alt-conclusion h2 {
+        font-size: 2.4em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .alt-conclusion p {
+        font-size: 1.15em;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
 
 
     /*------------------------------------------------------------*/    
 
+    /*------------------------------------------------------------*/
+    /* Challenge Overview Section */
+    .challenge {
+        padding: 50px 10%;
+        background: #f0f4f8;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .challenge h2 {
+        font-size: 2.5em;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .challenge-content p {
+        line-height: 1.8;
+        color: #555;
+        font-size: 1.1em;
+    }
+
+    /* Methodology Section */
+    .methodology {
+        padding: 50px 10%;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .methodology h2 {
+        font-size: 2.5em;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .methodology-content ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .methodology-content li {
+        margin-bottom: 20px;
+        padding-left: 20px;
+        position: relative;
+    }
+    .methodology-content li::before {
+        content: "•";
+        color: #3498db;
+        font-size: 1.5em;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .methodology-content strong {
+        color: #333;
+        font-size: 1.2em;
+    }
+    .methodology-content p {
+        color: #555;
+        line-height: 1.6;
+    }
+
+
+    /* Results Section */
+    .outcome {
+        padding: 50px 10%;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .outcome h2 {
+        font-size: 2.5em;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .outcome-content ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .outcome-content li {
+        margin-bottom: 20px;
+        padding-left: 20px;
+        position: relative;
+    }
+    .outcome-content li::before {
+        content: "•";
+        color: #3498db;
+        font-size: 1.5em;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .outcome-content strong {
+        color: #333;
+        font-size: 1.2em;
+    }
+    .outcome-content p {
+        color: #555;
+        line-height: 1.6;
+    }    
+
+    /* Outlook Section */
+    .outlook {
+        padding: 50px 10%;
+        background: #f9f9f9;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .outlook h2 {
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .outlook p {
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.8;
+    }
