@@ -106,77 +106,61 @@
 
     /*-------------------------------------------------------------*/
 
-        /* Skill Tags */ 
-        .skill_tags {
-            display: flex;
-            width: 78%;
-            padding: 20px;
-            padding-left: 150px;
-            font-family: Verdana;
-            position: relative;
-        }
+        
+    /* Skill Tags Section */
+    .skill_tags {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        font-family: Verdana;
+    }
 
-        .skill_tags ul {
-            list-style: none;
-            margin: 0;
-            padding: 15px;
-            display: flex;
-            overflow-x: auto;  /* Enable horizontal scrolling */
-            white-space: nowrap;
-            scroll-behavior: smooth;  /* Smooth scrolling */
-            width: 90vw;  /* Set a width to limit the visible area */
-        }
+    .category {
+        margin-bottom: 1px;
+    }
 
-        .skill_tags li {
-            margin-right: 20px;
-            color: #696e6b;
-            font-size: 18px;
-            border: 1px solid black;
-            padding: 10px 8px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.3s, color 0.3s;
-            display: inline-block;  /* Ensure the items stay inline */
-        }
+    .category h3 {
+        font-size: 1.2em;
+        color: #333;
+        display: inline-block; /* Keep category name inline */
+        width: 200px; /* Set a fixed width to align the colons */
+        margin-right: 20px; /* Add space between category name and skill boxes */
+        vertical-align: top; /* Align text properly with the skill list */
+    }
 
-        .skill_tags li:hover {
-            color: black;
-            background-color: #798fb3;
-            transform: scale(1.1);
-        }
+    .category ul {
+        display: inline-block;
+        padding: 5px;
+        margin-left: 10px;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent wrapping */
+        width: calc(100% - 250px); /* Adjust width based on category name width */
+        vertical-align: top;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap;
+        scrollbar-width: thin; /* For Firefox: Makes the scrollbar thinner */
+        scrollbar-color: #798fb3 #f2f2f2; /* For Firefox: Colors the thumb and track */
+    }
 
-        .skill_tags a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 5px;
-            transition: color 0.3s;
-        }
+    .category li {
+        list-style-type: none;
+        padding: 10px 15px;
+        background-color: #f2f2f2;
+        border-radius: 8px;
+        color: #333;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.3s;
+        cursor: pointer;
+        display: inline-block; /* Keep items inline */
+        margin-right: 10px;
+    }
 
-        .skill_tags a:hover {
-            color: #007BFF;
-        }
+    .category li:hover {
+        background-color: #798fb3;
+        color: white;
+        transform: scale(1.05);
+    }
 
-
-        /* Scroll Buttons */
-        .scroll-left, .scroll-right {
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 10px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .scroll-left {
-            left: 0;
-        }
-
-        .scroll-right {
-            right: 0;
-        }
 
     /*-------------------------------------------------------------*/
 
@@ -408,29 +392,75 @@
 
     /*-------------------------------------------------------------*/
 
-    /* Style for About Me Section */  
-
-   .about_me_box {
-        background-color: #f9f9f9; /* Light grey background */
-        padding: 40px;
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-        max-width: 700px;
-        margin: 20px auto; /* Centered on the page */
-        text-align: center;
+    .about_me_box {
+        background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Subtle gradient background */
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(255, 255, 255, 0.5); /* Neumorphism effect */
+        max-width: 800px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column; /* Stack portrait and content vertically */
+        align-items: center; /* Center align portrait and text */
+        gap: 20px; /* Space between portrait and text */
+        transition: transform 0.3s, box-shadow 0.3s;
     }
-
-    .about_me_box h2 {
-        font-size: 2em;
-        margin-bottom: 20px;
-        color: #333; /* Darker color for the heading */
+    
+    .about_me_box:hover {
+        transform: scale(1.02);
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -8px -8px 20px rgba(255, 255, 255, 0.6);
     }
-
-    .about_me_box p {
+    
+    .about_me_portrait {
+        width: 150px;
+        height: 180px;
+        border-radius: 50%; /* Circular image */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+        object-fit: cover; /* Ensures the image fits within the circle */
+    }
+    
+    .about_me_content {
+        text-align: center; /* Center-align the content */
+    }
+    
+    .about_me_content h2 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+        color: #222;
+        font-family: 'Roboto', sans-serif;
+    }
+    
+    .about_me_content p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        color: #555;
+        font-family: 'Open Sans', sans-serif;
+    }
+    
+    .about_me_content p span {
+        color: #007BFF;
+        font-weight: bold;
+    }
+    
+    .about_me_content ul {
+        list-style-type: disc; /* Ensure bullet points are discs */
+        list-style-position: inside; /* Position bullet inside the content box */
+        margin: 0; /* Remove default margins */
+        padding: 0; /* Remove default padding */
+        padding-left: 20px; /* Controlled spacing */
         font-size: 1.1em;
-        line-height: 1.6; /* Comfortable line spacing */
-        color: #666; /* Soft grey for text */
+        color: #000000;
     }
+    
+    .about_me_content ul li {
+        margin: 0; /* Remove extra margins */
+        padding: 0; /* No additional padding */
+        margin-bottom: 8px; /* Adjust spacing between items */
+        line-height: 1.6; /* Comfortable line spacing */
+    }
+    
+    
+      
 
     /*------------------------------------------------------------*/
     /* Introduction Section */

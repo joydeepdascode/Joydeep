@@ -55,9 +55,10 @@
 
 
         function scrollSkills(scrollAmount) {
-            const skillsList = document.getElementById('skill_tags');
-            skillsList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            const skillLists = document.querySelectorAll('.category ul');
+            skillLists.forEach(list => list.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
         }
+        
 
         // --------------------------------------------------------
 
