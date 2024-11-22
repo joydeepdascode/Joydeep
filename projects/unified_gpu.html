@@ -22,7 +22,7 @@
 <!-- ------------------------------------------------------------------- -->    
 
     <div class="hero">                                        
-        <h1>Secure API Implementation for Robust EHR Management in Cloud-Based Healthcare Systems.</h1> 
+        <h1>Optimizing GPU Data Transfers for Monte Carlo Simulations in Healthcare</h1> 
         <p><a href="https://github.com/joydeepdascode/ehr_Electronic_Health_Records">[GitHub Link]</a></p>
     </div>
 
@@ -31,11 +31,13 @@
 <section class="intro">
     <div class="intro-text">
         <h1>Introduction</h1>
-        <p>In today's digital healthcare environment, managing Electronic Health Records 
-           (EHR) securely is vital for patient data protection and trust in healthcare 
-           systems. This project aims to create a cloud-based EHR system with a focus 
-           on robust API security to meet industry regulations and enhance user 
-           experience for healthcare professionals.</p>
+        <p>Monte Carlo simulations play a crucial role in healthcare, particularly in radiation 
+           therapy planning, where they model particle interactions to optimize dose delivery. 
+           Despite their computational efficiency using GPU frameworks like CUDA, performance 
+           bottlenecks due to frequent data transfers between CPU and GPU hinder scalability. 
+           This project focuses on overcoming this challenge by leveraging advanced GPU 
+           programming techniques to optimize data transfers, enabling faster and more 
+           efficient simulations.</p>
     </div>
     <!-- <div class="intro-media"> -->
         <!-- <img src="https://example.com/intro-image.jpg" alt="Tokamak Image"> -->
@@ -53,14 +55,11 @@
     <h2>Problem Statement</h2>
     <div class="problem-content">
         <div class="problem-text">
-            <p>API security in healthcare applications is often insufficient, 
-               leading to vulnerabilities that can expose sensitive patient 
-               information. As healthcare systems increasingly rely on digital 
-               solutions, implementing a secure, reliable API for managing patient 
-               data is essential. The objective of this project is to secure the 
-               backend API of the EHR system against unauthorized access, SQL injection, 
-               and DDoS attacks, ensuring that patient data remains private and 
-               compliant with healthcare regulations.</p>
+            <p>Monte Carlo simulations in radiation therapy rely heavily on GPU acceleration. 
+               However, frequent data movement between the CPU and GPU introduces 
+               significant overhead, leading to slower runtimes and limited scalability. This 
+               project aims to reduce these latencies, enabling better resource utilization 
+               and faster computational workflows for healthcare simulations.</p>
         </div>
         <!-- <div>
             <p>Equlibrium Magnetic Field and its covariant components are given by:</p>
@@ -79,21 +78,26 @@
     <h2>Techniques Used</h2>
 
     <div class="technique-content">
-        <p style="text-align: center;">The secure API implementation incorporates:</p>
+        <p style="text-align: center;">The following techniques were implemented to address data transfer overhead:</p>
         <ul>
-            <li><strong>Input Validation:</strong> Each API request undergoes rigorous validation to protect against injection attacks.</li><p>
-            <li><strong>Rate Limiting:</strong> By controlling the number of requests per user, this approach prevents DDoS attacks and unauthorized access attempts.</li><p>
-            <li><strong>Access Control:</strong> Role-based access ensures that only authorized users can view or modify specific data, minimizing the risk of exposure.</li><p>
+            <li><strong>CUDA Unified Memory:</strong> Simplified memory management to 
+                reduce the complexity and latency of host-device transfers.</li>
+            <p></p>
+            <li><strong>Data Batching:</strong> Optimized data movement by processing 
+                transfers in larger, efficient batches.</li>
         </ul>
     </div>
 
     <h2>Tools Used</h2>
     <div class="technique-content">
         <ul>
-            <li><strong>Platform:</strong> AWS</li><p>
-            <li><strong>Backend Framework:</strong> Node.js, Express</li><p>
-            <li><strong>Database:</strong> PostgreSQL with Sequelize ORM</li><p>
-            <li><strong>Programming Language:</strong> JavaScript</li><p></p>
+            <li><strong>Programming Languages:</strong> Python, C++</li>
+            <p></p>
+            <li><strong>Frameworks:</strong> CUDA, NVIDIA Nsight Systems</li>
+            <p></p>
+            <li><strong>Infrastructure:</strong> HPC systems with GPU clusters</li>
+            <p></p>
+            <li><strong>Visualization:</strong> Matplotlib for performance analysis</li>
         </ul>
     </div>
 </section>
@@ -111,24 +115,44 @@
     </div>
 </section> -->
 
+<!-- Expected Outcomes Section -->
+<section class="outcome">
+    <h2>Expected Outcomes</h2>
+    <div class="outcome-content">
+        <ul>
+            <li>A measurable reduction in GPU data transfer time.</li>
+            <li>Improved runtime for Monte Carlo simulations in radiation therapy.</li>
+            <li>Scalability improvements applicable to broader HPC healthcare projects.</li>
+        </ul>
+    </div>
+</section>
+
 <!-- Conclusion Section -->
 <section class="conclusion">
     <h2>Conclusion and Future Outlook</h2>
-    <p> The secure API implementation significantly enhances the protection of 
-        sensitive patient data in the EHR system. By focusing on input validation, 
-        rate limiting, and access control, this project addresses critical 
-        vulnerabilities and creates a secure environment for healthcare data 
-        management.
-    </p>
-    <p>Future development will include the integration of machine learning 
-       algorithms to proactively monitor and detect anomalies in real-time, 
-       adding an extra layer of security to the EHR system. Additionally, 
-       incorporating OAuth 2.0 for user authentication will further strengthen 
-       system security and compliance with regulatory standards.
-    </p>
+    <p>This project significantly mitigates the critical bottleneck related to data transfer 
+       latency inherent in GPU-accelerated Monte Carlo simulations. The efficiency was 
+       achieved by incorporating CUDA Unified Memory and batching techniques for data, 
+       leading to dramatic reductions in transfer overhead that increased overall simulation 
+       runtime and scalability. Optimizations such as these are critical for health-care 
+       applications, notably those involving radiation therapy planning, where efficiency 
+       directly determines patient outcome.</p>
+       For Future Work, continuation of the methodology of the project to other parallel 
+       computing challenges of healthcare simulations. Potential future directions 
+       include:</p>
+    <ul>
+        <li><strong>Balancing Dynamic Workload:</strong> Potential Improvement in GPU 
+            utilization across different data sizes.</li>
+        <li><strong>Real-World Integration:</strong> Partnering with healthcare 
+            institutions to validate performance gains on clinical datasets.</li>
+        <li><strong>Advanced Profiling Tools:</strong> Utilizing AI-driven insights 
+            to further tune memory access patterns and optimize data movement.</li>
+    </ul>
+    <p>These advancements promise to change the regime of healthcare simulations, 
+       making them more efficient, scalable, and applicable to diverse computational 
+       challenges.</p>
 </section>
 
-</section>
    
 
 <!-- ------------------------------------------------------------------- -->

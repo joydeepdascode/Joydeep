@@ -466,20 +466,30 @@
 
     /* Technique Section */
     .technique {
-        padding: 50px 10%;
-        background: #fff;
+        padding: 50px 10%; /* Balanced padding for better spacing */
+        background: #f9f9f9; /* Subtle background for distinction */
+        border-top: 1px solid #ddd; /* Clean separation from other sections */
+        border-bottom: 1px solid #ddd;
     }
+
     .technique h2 {
-        font-size: 2em;
+        font-size: 2em; /* Maintains prominence for the heading */
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px; /* Space below heading for readability */
         color: #333;
     }
+
     .technique-content ul {
         list-style-type: disc;
-        margin-left: 20px;
+        margin-left: 30px; /* Adjusted for cleaner alignment */
+        line-height: 1.6; /* Improved spacing between lines for readability */
         color: #555;
     }
+
+    .technique-content ul li {
+        margin-bottom: 15px; /* Space between list items for better clarity */
+    }
+
 
     /* Results Section */
     .results {
@@ -513,22 +523,68 @@
         transform: scale(1.05); /* Slight zoom on hover */
     }
 
-
     /* Conclusion Section */
     .conclusion {
         padding: 50px 10%;
         background: #f9f9f9;
-        text-align: center;
+        text-align: left; /* Left-aligning for better reading */
     }
+
     .conclusion h2 {
         font-size: 2em;
         margin-bottom: 20px;
         color: #333;
+        text-align: center; /* Keep heading centered for emphasis */
     }
+
     .conclusion p {
         color: #555;
         line-height: 1.6;
+        font-size: 1.1em;
+        margin-bottom: 15px; /* Adding some space between paragraphs */
     }
+
+    .conclusion ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        color: #555;
+    }
+
+    .conclusion ul li {
+        font-size: 1.1em;
+        margin-bottom: 10px; /* Space between list items */
+    }
+
+    /* Future Work Section */
+    .future-work {
+        padding: 30px 10%;
+        background: #fafafa;
+        text-align: left;
+    }
+
+    .future-work h3 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .future-work p {
+        color: #555;
+        line-height: 1.6;
+        font-size: 1.1em;
+    }
+
+    .future-work ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        color: #555;
+    }
+
+    .future-work ul li {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
 
     /*------------------------------------------------------------*/
 
