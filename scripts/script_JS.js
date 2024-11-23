@@ -73,5 +73,19 @@
             this.reset();
         });
 
+        // --------------------------------------------------------
+
+        // Get the current visit count from localStorage, or set to 0 if not set
+        let visitCount = localStorage.getItem('visitCount') ? parseInt(localStorage.getItem('visitCount')) : 0;
+
+        // Increment the visit count
+        visitCount++;
+
+        // Save the new visit count in localStorage
+        localStorage.setItem('visitCount', visitCount);
+
+        // Display the visit count on the page
+        document.getElementById('visitCount').innerText = `You have visited this page ${visitCount} time(s).`;
+
 
         // -----------------------------------------------------------------------------
