@@ -1,0 +1,272 @@
+body {
+    
+    /* background-color: #0f0f0f;
+    color: #e0e0e0;
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+    
+  }
+
+  
+    /*-------------------------------------------------------------*/
+
+        /* Navigation Bar Styles */
+        .main-nav {
+            position: fixed; /* Ensures the nav stays at the top */
+            top: 0; /* Aligns it to the top */
+            width: 100vw; /* Full width of the viewport */
+            z-index: 1000; /* Bring it to the front */
+            display: flex;
+            justify-content: center;
+            background-color: #000000;
+            padding: 15px 0;
+            font-family: Verdana;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .main-nav p{
+            color: #ffffff;
+        }
+
+        .main-nav li {
+            margin-right: 20px;
+            color: #fff;
+            font-size: 18px;
+
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .main-nav li:hover {
+            color: #007BFF;
+            transform: scale(1.1);
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 5px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: #007BFF;
+        }
+
+    /*-------------------------------------------------------------*/
+
+        /*-------------------------------------------------------------*/
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #000000, #810303);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            font-family: Times;
+            padding-top: 125px;
+            padding-bottom: 0px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-family: Arial;
+        }
+
+    /*-------------------------------------------------------------*/
+
+
+  .linkedin-section {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    margin: 20px auto;
+    max-width: 600px; /* Added max-width to reduce the box size */
+  }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+
+  .linkedin-text {
+    text-align: left;
+    color: #e0e0e0;
+  }
+  .linkedin-text h2 {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+  .linkedin-text h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #ccc;
+  }
+  .linkedin-text p {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #ccc;
+  }
+  .linkedin-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #0077b5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  .linkedin-button:hover {
+    background-color: #004182;
+  }
+
+  .linkedin-link {
+      text-decoration: none; /* Removes underline from link */
+      color: #007bff; /* Example link color */
+      /* Add other link styles as needed */
+  }
+
+  .linkedin-link:hover {
+      color: #0056b3; /* Example hover color */
+  }
+
+
+  .profile-container {
+      display: flex; /* Enables flexbox for side-by-side layout */
+      align-items: center; /* Vertically aligns the items */
+      gap: 20px; /* Adds spacing between the items (adjust as needed) */
+      margin: 20px auto; /* Centers the container on the page */
+      max-width: 1000px; /* Optional: Sets a maximum width for the container */
+  }
+
+
+
+
+
+
+
+
+  .infoBox-container {
+      flex: 1;
+      min-width: 450px;
+  }
+
+  .infoBox {
+      display: flex;
+
+      min-width: 550px;
+      min-height: 180px; /* Ensures consistent height */
+
+      align-items: center;
+      background-color: #222;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(240, 84, 84, 0.2);
+      color: #e9e9e9;
+      padding: 20px;
+      margin-bottom: 15px;
+      gap: 20px;
+  }
+
+  .infoBox img {
+      max-width: 220px;  /* Adjust as needed */
+      border-radius: 10px;
+      flex-shrink: 0;
+  }
+
+  .infoText {
+      flex: 1;
+      text-align: left;
+  }
+
+
+
+
+  
+  .space-add{
+      padding: 52px 25px;
+  }
+
+ .typing-wrapper {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      font-family: monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 1px solid #BFA15A; /* Cursor effect */
+      width: fit-content;
+      margin: auto;
+      
+      height: 40px; /* FIXED HEIGHT to stop elements from shifting */
+  }
+
+  .equation-block {
+      background-color: #1a1a1a; /* Darker background for contrast */
+      border: 1px solid #000000; /* Subtle border */
+      border-radius: 10px; /* Rounded corners */
+      padding: 20px; /* Padding inside the block */
+      margin: 20px auto; /* Margin around the block, centered */
+      max-width: 800px; /* Or a suitable max-width */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  }
+
+  .equation-block h1 {
+      color: #e0e0e0; /* Lighter heading color */
+      margin-bottom: 10px; /* Space below the heading */
+      text-align: center;
+  }
+
+  .equation {
+      text-align: center; /* Center the equation */
+      margin: 15px 0; /* Space above and below the equation */
+      font-size: 1.4em; /* Slightly larger equation font size */
+  }
+
+  .equation p {
+      margin: 0; /* Remove default paragraph margins within equation block */
+      font-size: 1.4em; /* Slightly larger equation font size */
+  }
+
+  .equation-block p {
+      color: #ccc; /* Lighter text color for description */
+      text-align: justify; /* Justify the text */
+  }
+
+  /* Optional: Add some responsive styling */
+  @media (max-width: 600px) {
+      .equation-block {
+          padding: 15px;
+      }
+      .equation {
+          font-size: 1em;
+      }
+  }
+
+  ul {
+          text-align: left;
+          list-style-position: inside;
+      }
