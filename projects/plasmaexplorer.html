@@ -8,6 +8,28 @@
     <link rel="stylesheet" href="../styles/extra_styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+    <style>
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #000000, #810303);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            font-family: Times;
+            padding-top: 125px;
+            padding-bottom: 0px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-family: Arial;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,16 +41,24 @@
             <li><a href="../publications/neural_g2c3.html">Publications \( (\zeta) \)</a></li> 
             <li><a href="../index.html#contact">Contact \( (\gamma) \)</a></li>
         </ul>
-        <!-- <p>Open Day \(1^{st} \) March 2025 - Indian Institute of Science</p> -->
     </nav>
 
 <!-- ------------------------------------------------------------------- -->    
 
     <div class="hero">                                        
         <h1>Are you a PlasmaExplorer ?</h1> 
-        <p>Play the game below</p>
-        <h4>(Note: The link might be updated everytime as it is a temporary server)</h3>
-            <p>Server: <a href="https://github.com/joydeepdascode/unified_memoroy_and_data_batching_GPU/">[GitHub Link]</a></p>
+            <p>Download the Game here:</p>
+            <a href="" 
+            style="display: inline-block; padding: 10px 18px; font-size: 16px; font-weight: 600; text-decoration: none; color: #ffffff; background: linear-gradient(135deg, #6a11cb, #2575fc); border-radius: 8px; transition: all 0.3s ease-in-out; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);"
+            onmouseover="this.style.background='linear-gradient(135deg, #2575fc, #6a11cb)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';" 
+            onmouseout="this.style.background='linear-gradient(135deg, #6a11cb, #2575fc)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.2)';">
+            GitHub: PlasmaExplorer 
+            </a>
+
+    <!--             <p>Password: </p> -->
+    <!--         <h4>(Note: The link might be updated as it is a temporary server)</h4> -->
+             
+            <h3>(Featured on OpenDay IISc 2025)</h3>
     </div>
 
 
@@ -36,129 +66,35 @@
 <section class="intro">
     <div class="intro-text">
         <h1>Introduction</h1>
-        <p>Monte Carlo simulations play a crucial role in healthcare, particularly in radiation 
-           therapy planning, where they model particle interactions to optimize dose delivery. 
-           Despite their computational efficiency using GPU frameworks like CUDA, performance 
-           bottlenecks due to frequent data transfers between CPU and GPU hinder scalability. 
-           This project focuses on overcoming this challenge by leveraging advanced GPU 
-           programming techniques to optimize data transfers, enabling faster and more 
-           efficient simulations.</p>
-    </div>
-    <!-- <div class="intro-media"> -->
-        <!-- <img src="https://example.com/intro-image.jpg" alt="Tokamak Image"> -->
-    <!-- </div> -->
-    <!-- <div class="intro_vidbox">
-        <video autoplay muted loop>
-            <source src="../media/file10001-0090.mp4" type="video/mp4">
-        </video>
-    </div> -->
-
-</section>
-
-<!-- Problem Statement Section -->
-<section class="problem">
-    <h2>Problem Statement</h2>
-    <div class="problem-content">
-        <div class="problem-text">
-            <p>Monte Carlo simulations in radiation therapy rely heavily on GPU acceleration. 
-               However, frequent data movement between the CPU and GPU introduces 
-               significant overhead, leading to slower runtimes and limited scalability. This 
-               project aims to reduce these latencies, enabling better resource utilization 
-               and faster computational workflows for healthcare simulations.</p>
-        </div>
-        <!-- <div>
-            <p>Equlibrium Magnetic Field and its covariant components are given by:</p>
-            <p>\[ \vec{B} = \nabla \psi (R,Z) \times \nabla \zeta + \frac{F(\psi)}{R} \mathop \zeta\limits^ \wedge  \]</p>
+           <section id="introduction">
+            <h2>Welcome to PlasmaExplorer</h2>
+            <p>
+                <strong>PlasmaExplorer</strong> is a basic visualization tool designed to illustrate simplified 
+                plasma behavior under different conditions. By adjusting parameters such as 
+                <em>magnetic field strength (B)</em>, <em>wavenumber (k)</em>, <em>twist factor</em>, and 
+                <em>number of CPU cores</em>, users can observe how these factors influence plasma dynamics 
+                in an idealized setting.
+            </p>
+            <p>
+                In real-life scenarios, plasma behavior is far more complex and chaotic than what is 
+                represented here. Factors such as turbulence, instabilities, and nonlinear interactions 
+                play a significant role in shaping particle motion, making real plasma systems 
+                highly unpredictable and computationally intensive to model accurately.
+            </p>
+            <p>
+                This tool serves as an introductory illustration, providing a simplified glimpse into 
+                how magnetic fields influence particle movement. While it does not capture the full complexity 
+                of plasma physics, it offers a starting point for understanding fundamental concepts.
+            </p>
+        </section>
         
-            <p>\[{B_R} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial Z}};{B_Z} =  - \frac{1}{R}\frac{{\partial \psi }}{{\partial R}};{B_\zeta } = \frac{{F(\psi )}}{R};\]</p>
-        </div> -->
-        <!-- <div class="problem-media">
-            <img src="https://example.com/problem-image.jpg" alt="Problem Diagram">
-        </div> -->
-    </div>
-</section>
-
-<!-- Technique Section -->
-<section class="technique">
-    <h2>Techniques Used</h2>
-
-    <div class="technique-content">
-        <p style="text-align: center;">The following techniques were implemented to address data transfer overhead:</p>
-        <ul>
-            <li><strong>CUDA Unified Memory:</strong> Simplified memory management to 
-                reduce the complexity and latency of host-device transfers.</li>
-            <p></p>
-            <li><strong>Data Batching:</strong> Optimized data movement by processing 
-                transfers in larger, efficient batches.</li>
-        </ul>
     </div>
 
-    <h2>Tools Used</h2>
-    <div class="technique-content">
-        <ul>
-            <li><strong>Programming Languages:</strong> Python, C++</li>
-            <p></p>
-            <li><strong>Frameworks:</strong> CUDA, NVIDIA Nsight Systems</li>
-            <p></p>
-            <li><strong>Infrastructure:</strong> HPC systems with GPU clusters</li>
-            <p></p>
-            <li><strong>Visualization:</strong> Matplotlib for performance analysis</li>
-        </ul>
-    </div>
-</section>
-
-<!-- Results Section -->
-<!-- <section class="results">
-    <h2>Results</h2>
-    <div class="results-content">
-        <p>The simulation results indicated significant improvements in the understanding of plasma equilibrium properties within the tokamak, leading to more stable confinement conditions.</p>
-        <div class="results-gallery">
-            <img src="https://example.com/result1.jpg" alt="Result 1">
-            <img src="https://example.com/result2.jpg" alt="Result 2">
-            <img src="https://example.com/result3.jpg" alt="Result 3">
-        </div>
-    </div>
-</section> -->
-
-<!-- Expected Outcomes Section -->
-<section class="outcome">
-    <h2>Expected Outcomes</h2>
-    <div class="outcome-content">
-        <ul>
-            <li>A measurable reduction in GPU data transfer time.</li>
-            <li>Improved runtime for Monte Carlo simulations in radiation therapy.</li>
-            <li>Scalability improvements applicable to broader HPC healthcare projects.</li>
-        </ul>
-    </div>
-</section>
-
-<!-- Conclusion Section -->
-<section class="conclusion">
-    <h2>Conclusion and Future Outlook</h2>
-    <p>This project significantly mitigates the critical bottleneck related to data transfer 
-       latency inherent in GPU-accelerated Monte Carlo simulations. The efficiency was 
-       achieved by incorporating CUDA Unified Memory and batching techniques for data, 
-       leading to dramatic reductions in transfer overhead that increased overall simulation 
-       runtime and scalability. Optimizations such as these are critical for health-care 
-       applications, notably those involving radiation therapy planning, where efficiency 
-       directly determines patient outcome.</p>
-       For Future Work, continuation of the methodology of the project to other parallel 
-       computing challenges of healthcare simulations. Potential future directions 
-       include:</p>
-    <ul>
-        <li><strong>Balancing Dynamic Workload:</strong> Potential Improvement in GPU 
-            utilization across different data sizes.</li>
-        <li><strong>Real-World Integration:</strong> Partnering with healthcare 
-            institutions to validate performance gains on clinical datasets.</li>
-        <li><strong>Advanced Profiling Tools:</strong> Utilizing AI-driven insights 
-            to further tune memory access patterns and optimize data movement.</li>
-    </ul>
-    <p>These advancements promise to change the regime of healthcare simulations, 
-       making them more efficient, scalable, and applicable to diverse computational 
-       challenges.</p>
 </section>
 
 <!-- ------------------------------------------------------------------- -->
+<br>
+<h3 style="text-align: center;">Have any queries? Ask me</h3>
 
     <div class="profile-container">
         <div class="linkedin-section">
@@ -166,7 +102,7 @@
             <div class="linkedin-text">
                 <h2>Joydeep Das</h2>
                 <h3>HPC & Physics Researcher | Plasma Simulations | Machine Learning</h3>
-                <p>Let's connect on HPC, simulations, and research. Contact me for any queries.<br>
+                <p>Let's connect on HPC, simulations, and research. Contact me for any queries.<br><br>
                     
                     <a href="mailto:joydeep.das39@gmail.com" target="_blank" class="linkedin-link">Email - joydeep.das39@gmail.com</a>
                 </p>

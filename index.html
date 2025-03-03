@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles/styles_CSS.css"> <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles/extra_styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
@@ -59,6 +60,7 @@
                 <li data-tag="matlab">MATLAB</li>
                 <li data-tag="nodejs">Node.js</li>
                 <li data-tag="reactjs">React.js</li>
+                <li data-tag="flask">Flask</li>
                 <li data-tag="postgresql">PostgreSQL</li>
                 <li data-tag="jwt">JWT (Authentication)</li>
                 <li data-tag="aws">AWS</li>
@@ -86,7 +88,7 @@
 
         <!-- Project 8 -->
         <a href="projects/plasmaexplorer.html" class="no-style-link">
-            <div class="projects_container" data-tags="hpc nvidia-nsight python cuda c++ 
+            <div class="projects_container" data-tags="research physics plasma python flask hpc version_control_git 
             version_control_git">
                 <div class="projects_imgbox">
                     <!-- <video autoplay muted loop>
@@ -96,19 +98,19 @@
                 </div>
                 <div class="projects_textbox">
                     <h2>PlasmaExplorer - A parallel processing desktop-web app</h2>
-                    <p>Addressing the Bottleneck for CPU-GPU Data Transfers in Monte Carlo 
-                        Simulations of Radiation Therapy Planning, this project uses CUDA Unified 
-                        Memory in combination with batching techniques in order to reduce transfer 
-                        latency and enhance runtime efficiency. Utilizing Python, C++, and NVIDIA 
-                        Nsight Systems, it shows better scalability and performance in support of 
-                        advanced GPU-accelerated healthcare simulations.</p>            
+                    <p>Ever wondered how magnetic fields sculpt the dance of charged particles in fusion devices?
+                        ⚡️ Tokamak or ⚡️ Stellarator? The choice is yours! Adjust the \(B\), \(k\)-fold & \(twist\) to morph between
+                        exotic configurations, or modify the \(core \) values to explore code parallelization in action.</p>            
                         <p>Skills: 
+                        <span class="skill-box">Research</span>
+                        <span class="skill-box">Plasma Physics</span> 
                         <span class="skill-box">Python</span>
-                        <span class="skill-box">C++</span>
-                        <span class="skill-box">CUDA</span>
-                        <span class="skill-box">NVIDIA NSight</span>
+                        <span class="skill-box">Flask</span>
+                        <!-- <span class="skill-box">C++</span> -->
+                        <!-- <span class="skill-box">CUDA</span> -->
+                        <!-- <span class="skill-box">NVIDIA NSight</span> -->
                         <span class="skill-box">Supercomputing(HPC)</span>
-                        <span class="skill-box">Docker</span>
+                        <!-- <span class="skill-box">Docker</span> -->
                         <span class="skill-box">Version Control: Git</span>
                     </p>
                     
@@ -189,9 +191,10 @@
         <div class="projects_container" data-tags="physics plasma hpc research fortran python 
         git latex version_control_git">
             <div class="projects_imgbox">
-                <video autoplay muted loop>
-                    <source src="media/file10001-0090.mp4" type="video/mp4">
-                </video>
+                <!-- <video autoplay muted loop>
+                    <source src="media/tkm.mp4" type="video/mp4">
+                </video> -->
+                <img src="media/Tkm_gif.gif" alt="Project 1 Image">
                 <!-- <img src="media/0001-0090.mp4" alt="Project 1 Image"> -->
             </div>
             <div class="projects_textbox">
@@ -204,7 +207,7 @@
                 top of the flux surface contours in a chosen poloidal plane.</p>            
                 <p>Skills: 
                     <span class="skill-box">Particle-In-Cell(PIC)</span>
-                    <span class="skill-box">Physics</span>  
+                    <span class="skill-box">Plasma Physics</span>  
                     <span class="skill-box">Research</span>
                     <span class="skill-box">Supercomputing(HPC)</span>
                     <span class="skill-box">Python</span>
