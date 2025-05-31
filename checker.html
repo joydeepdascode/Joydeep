@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background: #0f0f1a;
+            color: #e0e0e0;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold gradient-text">PORTFOLIO</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#projects" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects</a>
+                        <a href="#publications" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Publications</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About Me</a>
+                        <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Home</a>
+                <a href="#projects" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Projects</a>
+                <a href="#publications" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Publications</a>
+                <a href="#about" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">About Me</a>
+                <a href="#contact" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="section flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        Hi, I'm <span class="gradient-text">John Doe</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-300">
+                        Creative Developer & Designer
+                    </h2>
+                    <p class="text-lg mb-8 text-gray-400 max-w-lg">
+                        I build immersive digital experiences that blend cutting-edge technology with elegant design.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full font-medium hover:opacity-90 transition duration-300">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-indigo-500 text-indigo-400 rounded-full font-medium hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500 floating">
+                            <!-- <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"  -->
+                            <img src="" 
+                                 alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Here are some of my recent works that showcase my skills and expertise</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 1" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">3D Visualization Platform</h3>
+                        <p class="text-gray-400 mb-4">An interactive 3D data visualization tool built with Three.js and React</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Three.js</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">React</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">WebGL</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555774698-0f77e70ac5e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 2" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AR Shopping Experience</h3>
+                        <p class="text-gray-400 mb-4">Augmented reality application for virtual product try-ons</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">ARKit</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Swift</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">SceneKit</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                             alt="Project 3" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Interactive Data Dashboard</h3>
+                        <p class="text-gray-400 mb-4">Real-time analytics dashboard with custom visualization components</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">D3.js</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Vue.js</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">WebSockets</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Publications Section -->
+    <section id="publications" class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Publications</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Research papers and articles I've contributed to in the field of interactive media</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Publication 1 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-alt text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"Advanced 3D Rendering Techniques for Web Applications"</h3>
+                            <p class="text-gray-400 text-sm">Journal of Interactive Media, 2023</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        This paper explores novel approaches to optimizing 3D rendering pipelines for web-based applications, 
+                        focusing on performance improvements and visual fidelity.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/jim.2023.045</span>
+                    </div>
+                </div>
+                
+                <!-- Publication 2 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-book-open text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"The Future of Augmented Reality in E-Commerce"</h3>
+                            <p class="text-gray-400 text-sm">International Conference on Digital Interfaces, 2022</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        An in-depth analysis of AR technology adoption in e-commerce platforms, with case studies 
+                        on user engagement and conversion metrics.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/icdi.2022.128</span>
+                    </div>
+                </div>
+                
+                <!-- Publication 3 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-chart-line text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"Data Visualization Techniques for Complex Datasets"</h3>
+                            <p class="text-gray-400 text-sm">IEEE Transactions on Visualization, 2021</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Presents innovative visualization methods for high-dimensional data, with applications in 
+                        scientific research and business intelligence.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/tvis.2021.078</span>
+                    </div>
+                </div>
+                
+                <!-- Publication 4 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-laptop-code text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"WebAssembly for High-Performance Web Applications"</h3>
+                            <p class="text-gray-400 text-sm">ACM SIGGRAPH Web Proceedings, 2020</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Investigates the use of WebAssembly to bring near-native performance to web-based 3D applications, 
+                        with benchmarks and implementation strategies.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/sigweb.2020.032</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Me Section -->
+    <section id="about" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/3 mb-12 lg:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500">
+                            <!-- <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80"  -->
+                            <img src="" 
+                                 alt="About Me" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-2/3 lg:pl-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8">About <span class="gradient-text">Me</span></h2>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Journey</h3>
+                        <p class="text-gray-400 mb-4">
+                            With over 8 years of experience in interactive media development, I've dedicated my career to 
+                            pushing the boundaries of what's possible in digital experiences. My journey began with a 
+                            fascination for computer graphics that evolved into expertise in 3D visualization, augmented 
+                            reality, and immersive web applications.
+                        </p>
+                        <p class="text-gray-400">
+                            I hold a Master's degree in Computer Science with a specialization in Interactive Media from 
+                            Stanford University, where I also worked as a research assistant in the Visual Computing Lab.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Skills</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-cube text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Three.js</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-react text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">React</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-js text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">JavaScript</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-vr-cardboard text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">WebXR</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-unity text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Unity</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-database text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">WebGL</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Approach</h3>
+                        <p class="text-gray-400">
+                            I believe in creating experiences that are not just visually stunning but also intuitive and 
+                            meaningful. My design philosophy centers around the user, ensuring that technology serves to 
+                            enhance rather than complicate the experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Have a project in mind or want to collaborate? Feel free to reach out!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="Project Inquiry">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg font-medium hover:opacity-90 transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="card-3d bg-gray-900 rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold mb-6 text-gray-300">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Email</h4>
+                                    <a href="mailto:contact@example.com" class="text-indigo-400 hover:text-indigo-300">contact@example.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone-alt text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Phone</h4>
+                                    <a href="tel:+1234567890" class="text-indigo-400 hover:text-indigo-300">+1 (234) 567-890</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-map-marker-alt text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Location</h4>
+                                    <p class="text-gray-400">San Francisco, CA</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <h3 class="text-xl font-bold mb-6 text-gray-300">Connect With Me</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-linkedin-in text-gray-300 text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-github text-gray-300 text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-twitter text-gray-300 text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-dribbble text-gray-300 text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-80 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold gradient-text">PORTFOLIO</a>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-gray-400 hover:text-white">Home</a>
+                    <a href="#projects" class="text-gray-400 hover:text-white">Projects</a>
+                    <a href="#publications" class="text-gray-400 hover:text-white">Publications</a>
+                    <a href="#about" class="text-gray-400 hover:text-white">About</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2023 John Doe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Three.js scene
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            // Create scene
+            const scene = new THREE.Scene();
+            
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.z = 30;
+            
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            container.appendChild(renderer.domElement);
+            
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 100;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.2,
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.x += 0.0005;
+                particlesMesh.rotation.y += 0.001;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                
+                renderer.setSize(width, height);
+            });
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.add('hidden');
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Section observer for animations
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initThreeJS();
+            
+            // Activate home section immediately
+            document.querySelector('#home').classList.add('active');
+        });
+    </script>
+</body>
+</html>
