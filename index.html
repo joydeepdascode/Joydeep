@@ -4,357 +4,1307 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles/styles_CSS.css"> <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="styles/extra_styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background: #0f0f1a;
+            color: #e0e0e0;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        .perspective-800 {
+            perspective: 800px;
+        }
+        .cube {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform-origin: center;
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.85;
+            border-radius: 1rem;
+        }
+        .face.front  { transform: translateZ(128px); }
+        .face.back   { transform: rotateY(180deg) translateZ(128px); }
+        .face.right  { transform: rotateY(90deg) translateZ(128px); }
+        .face.left   { transform: rotateY(-90deg) translateZ(128px); }
+        .face.top    { transform: rotateX(90deg) translateZ(128px); }
+        .face.bottom { transform: rotateX(-90deg) translateZ(128px); }
+
+        @keyframes spin {
+            from { transform: rotateX(0deg) rotateY(0deg);}
+            to { transform: rotateX(360deg) rotateY(360deg);}
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+
+        /*  */
+
+        /*  */
+
+
+    </style>
 </head>
 <body>
-
-<!-- ------------------------------------------------------------------- -->
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#top">Home \( (\alpha) \)</a></li>
-            <li><a href="about_me.html">About_Me \( (\beta) \)</a></li>
-            <li><a href="publications/neural_g2c3.html">Publications \( (\gamma) \)</a></li> 
-            <li><a href="#contact">Contact \( (\delta) \)</a></li>
-        </ul>
-    </nav>
-
-<!-- ------------------------------------------------------------------- -->
-    <div id="top"></div>    
-
-    <div class="hero">                                        
-        <h1>Welcome to My Portfolio</h1>                    
-        <p>Showcasing my work, skills, and passion.</p>
-<!--         <a href="checker.html">Click</a> -->
-    </div>
-
-<!-- ------------------------------------------------------------------- -->
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
     
-    <div class="choose_project">                                        
-        ..Choose Projects based on one or more skills used in it..
-    </div>
-
-<!-- ------------------------------------------------------------------- -->
- 
-    <section class="skill_tags">
-
-        <div class="category">
-            <h3>Computing & Research</h3>
-            <ul>
-                <li data-tag="research">Research</li>
-                <li data-tag="physics">Physics</li>
-                <li data-tag="plasma">Plasma Physics</li>
-                <li data-tag="molecular">Molecular(Bio) Physics</li>
-                <li data-tag="hpc">Supercomputing (HPC)</li>
-            </ul>
-        </div>
-
-        <div class="category">
-            <h3>Technical Skills</h3>
-            <ul>
-                <li data-tag="python">Python</li>
-                <li data-tag="c++">C++</li>
-                <li data-tag="fortran">Fortran</li>
-                <li data-tag="cuda">CUDA</li>
-                <li data-tag="nvidia-nsight">NVIDIA NSight</li>
-                <li data-tag="matlab">MATLAB</li>
-                <li data-tag="nodejs">Node.js</li>
-                <li data-tag="reactjs">React.js</li>
-                <li data-tag="flask">Flask</li>
-                <li data-tag="postgresql">PostgreSQL</li>
-                <li data-tag="jwt">JWT (Authentication)</li>
-                <li data-tag="aws">AWS</li>
-                <li data-tag="terraform">Terraform</li>
-                <li data-tag="docker">Docker</li>
-                <li data-tag="latex">LaTeX</li>
-                <li data-tag="version_control_git">Version Control: Git</li>
-            </ul>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold gradient-text">PORTFOLIO</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#projects" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects & Experience</a>
+                        <a href="#publications" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Publications</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About Me</a>
+                        <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         
-        <div class="category">
-            <h3>Security & Management</h3>
-            <ul>
-                <li data-tag="security">Data Security (HIPAA)</li>
-            </ul>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Home</a>
+                <a href="#projects" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Projects & Experience</a>
+                <a href="#publications" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Publications</a>
+                <a href="#about" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">About Me</a>
+                <a href="#contact" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="section flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        Hi, I'm <span class="gradient-text">Joydeep Das</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-300">
+                        AI Researcher & HPC Developer
+                    </h2>
+                    <p class="text-lg mb-8 text-gray-400 max-w-lg">
+                        I create intelligent systems and high-performance scientific tools that transform complex data into actionable insights, blending AI innovation with rigorous research.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full font-medium hover:opacity-90 transition duration-300">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-indigo-500 text-indigo-400 rounded-full font-medium hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500 floating">
+                            <!-- <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"  -->
+                            <img src="media/pic.jpeg" 
+                                 alt="Profile" class="w-full h-full object-contain">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Here are some of my recent works that showcase my skills and expertise</p>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active px-6 py-2 rounded-full font-medium border border-indigo-500 text-indigo-400 hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300" data-filter="all">
+                    All Projects
+                </button>
+                <!-- <button class="filter-btn px-6 py-2 rounded-full font-medium border border-indigo-500 text-indigo-400 hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300" data-filter="ai-apps">
+                    AI Applications
+                </button> -->
+                <button class="filter-btn px-6 py-2 rounded-full font-medium border border-indigo-500 text-indigo-400 hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300" data-filter="ai-agents">
+                    AI Agents & Applications
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full font-medium border border-indigo-500 text-indigo-400 hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300" data-filter="scientific">
+                    Scientific
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+
+
+                <!-- Project 1 - AI App -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 1" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Application</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI-Powered Image Generator</h3>
+                        <p class="text-gray-400 mb-4">A generative AI platform that creates unique artwork based on text prompts using Stable Diffusion</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">PyTorch</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Stable Diffusion</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+                
+                <!-- Project 2 - AI Agent -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555774698-0f77e70ac5e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 2" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Agent</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Autonomous Research Agent</h3>
+                        <p class="text-gray-400 mb-4">An AI agent that autonomously conducts scientific research and summarizes findings</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">LangChain</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">GPT-4</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+                
+                <!-- Project 3 - Scientific -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                             alt="Project 3" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Protein Folding Simulation</h3>
+                        <p class="text-gray-400 mb-4">Molecular dynamics simulation for protein structure prediction using AI</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">AlphaFold</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Bioinformatics</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+
+                <!-- Project 4 - AI App -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-apps">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1655720828012-58b8f0c412e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 4" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Application</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Voice Assistant with Emotion</h3>
+                        <p class="text-gray-400 mb-4">AI voice assistant that detects and responds to user emotions in real-time</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">NLP</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Emotion Detection</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+
+                <!-- Project 5 - AI Agent -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" 
+                             alt="Project 5" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Agent</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Multi-Agent Trading System</h3>
+                        <p class="text-gray-400 mb-4">Autonomous AI agents that collaborate to analyze markets and execute trades</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Reinforcement Learning</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Multi-Agent Systems</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+
+                <!-- Project 6 - Scientific -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507668077129-56ed3284f648?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Project 6" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Climate Modeling with AI</h3>
+                        <p class="text-gray-400 mb-4">Neural network models for predicting climate patterns and extreme weather events</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">TensorFlow</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Climate Science</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div> -->
+
+
+                <!--  -->
+
+
+                <!-- Project - AI-Agent - AI Lead Sentiment Analysis -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/aileadpic.jpg" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Agent & App.</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI Lead Sentiment Analysis</h3>
+                        <p class="text-gray-400 mb-4">AI tool analyzes chats, manages real estate leads via Google Sheets integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">AI</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">NLP</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Dashboard</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Sentiment</span>
+                        </div>
+                        <a href="#contact" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Contact Me <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project - AI-Agent - AI Assistant for Project Teams -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/aitask.gif" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Agent & App.</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI Task Prioritizer and Planner</h3>
+                        <p class="text-gray-400 mb-4">AI tool prioritizes tasks and generates daily work plans for teams.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">AI Productivity</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Task Management</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Project Planning</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Google Sheets</span>
+                        </div>
+                        <a href="#contact" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Contact Me <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Project - AI-Agent - AI Support Management -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="ai-agents">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/aisupport.gif" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">AI Agent & App.</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI Support Management</h3>
+                        <p class="text-gray-400 mb-4">AI tool auto-categorizes and prioritizes support tickets for faster resolution.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">AI Productivity</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Task Management</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Project Planning</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Google Sheets</span>
+                        </div>
+                        <a href="#contact" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Contact Me <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>                
+
+                <!--  -->
+
+                <!-- Project - Scientific - Plasma Explorer -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/stellarator-0.gif" 
+                                alt="Project 3" class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Plasma Explorer</h3>
+                        <p class="text-gray-400 mb-4">Explore how magnetic fields guide charged particles in fusion devices - configurations, parallelization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Plasma</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">HPC</span>
+                        </div>
+                        <a href="projects/plasmaexplorer.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project - Scientific - Optimizing GPU Data Transfers -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/unified.jpg" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Optimizing GPU Data Transfers</h3>
+                        <p class="text-gray-400 mb-4">Reducing CPU-GPU bottlenecks in Monte Carlo radiation therapy using CUDA Unified Memory.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">C++</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">CUDA</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">NVIDIA NSight</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Docker</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Git</span>
+                        </div>
+                        <a href="projects/unified_gpu.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>                
+
+                <!-- Project - Scientific - Equilibrium Properties: Tokamak -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/Tkm_gif.gif" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Equilibrium Properties: Tokamak</h3>
+                        <p class="text-gray-400 mb-4">Python tool visualizes EFIT flux surfaces, builds simulation grids using Euler integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Particle-In-Cell(PIC)</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Plasma</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Git</span>
+                        </div>
+                        <a href="projects/eq_ptg.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>  
+
+                <!-- 2Project - Scientific - θ-solvent of Polymer -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/Rg2T.png" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">θ-solvent of Polymer</h3>
+                        <p class="text-gray-400 mb-4">Simulating coarse-grained polymers to study θ-solvent behavior and ideal chain transitions.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">LAMMPS</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Physics</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Python</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">MATLAB</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">LaTeX</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Git</span>
+                        </div>
+                        <a href="projects/mol_theta.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>  
+
+                <!-- 3Project - Scientific - Coil-Globule Transition -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/mol_coil1E.png" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Coil-Globule Transition</h3>
+                        <p class="text-gray-400 mb-4">Exploring polymer dynamics: theory, experiments, and temperature-driven coil-globule transitions summary.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Physics</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Fortran</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">LaTeX</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Git</span>
+                        </div>
+                        <a href="projects/mol_coil.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>  
+
+                <!-- 4Project - Scientific - Penrose Diagram -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/FIG2E.png" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Penrose Diagram</h3>
+                        <p class="text-gray-400 mb-4">Conformal mappings reveal asymptotic structure of Minkowski and Schwarzschild spacetimes, highlighting compactification insights.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">General Relativity</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Physics</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">LaTeX</span>
+                        </div>
+                        <a href="projects/penrose.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>  
+
+
+                <!-- 5Project - Scientific - Cyclotron Emission -->
+                <div class="card-3d bg-gray-900 rounded-xl overflow-hidden" data-category="scientific">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="media/larmor1E.png" 
+                                alt="Project 3" class="w-full h-full object-contain transition duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-70 text-indigo-300 rounded-full text-xs">Scientific</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Cyclotron Emission</h3>
+                        <p class="text-gray-400 mb-4">Larmor’s formula links charged particle motion to radiation, enabling cyclotron applications exploration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Electromagnetic Theory</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Physics</span>
+                            <span class="px-3 py-1 bg-indigo-900 bg-opacity-50 text-indigo-300 rounded-full text-xs">Research</span>
+                        </div>
+                        <a href="projects/larmor1.html" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>  
+
+                <!--  -->
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+    
+    <!-- Experience Section -->
+    <section id="experience" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">My <span class="gradient-text">Experience</span></h1>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">My professional journey and key achievements</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <!-- Experience Timeline -->
+                <div class="space-y-12">
+                    <!-- Experience 1 -->
+                    <div class="relative pl-8 sm:pl-32 pb-12 group">
+                        <div class="font-bold text-lg text-indigo-400 mb-1 sm:mb-0">Computational Researcher</div>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center sm:gap-4">
+                            <div class="text-gray-300 font-medium">Indian Institute of Science, Bangalore</div>
+                            <div class="text-gray-500 text-sm">2021 - Present</div>
+                        </div>
+                        <div class="text-gray-400 mt-2">
+                            <!-- <p>Leading research in generative AI models, developing novel architectures for image and text generation, and publishing papers in top-tier conferences.</p> -->
+                            <!-- <ul class="mt-4 space-y-2 text-gray-500">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-indigo-400 mt-1 mr-2"></i>
+                                    <span>Developed state-of-the-art diffusion models for image synthesis</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-indigo-400 mt-1 mr-2"></i>
+                                    <span>Published 5 papers in NeurIPS and ICML</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-indigo-400 mt-1 mr-2"></i>
+                                    <span>Led team of 10 researchers and engineers</span>
+                                </li>
+                            </ul> -->
+                        </div>
+                        <div class="absolute left-0 sm:left-0 inset-y-0">
+                            <div class="h-full w-1 bg-indigo-500 opacity-80 group-hover:opacity-100 transition-all duration-300 relative">
+                                <div class="w-4 h-4 rounded-full bg-indigo-400 absolute -left-[6px] top-0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience 2 -->
+                    <div class="relative pl-8 sm:pl-32 pb-12 group">
+                        <div class="font-bold text-lg text-purple-400 mb-1 sm:mb-0">Research Trainee</div>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center sm:gap-4">
+                            <div class="text-gray-300 font-medium">Amity University</div>
+                            <div class="text-gray-500 text-sm">Jan. 2020 - Aug. 2020</div>
+                        </div>
+                        <div class="text-gray-400 mt-2">
+                            <!-- <p>Built and deployed machine learning models for various industries including healthcare and finance, focusing on explainability and robustness.</p> -->
+                            <!-- <ul class="mt-4 space-y-2 text-gray-500">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                                    <span>Developed ML pipelines processing TBs of data daily</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                                    <span>Created explainability framework adopted company-wide</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-purple-400 mt-1 mr-2"></i>
+                                    <span>Mentored 5 junior engineers</span>
+                                </li>
+                            </ul> -->
+                        </div>
+                        <div class="absolute left-0 sm:left-0 inset-y-0">
+                            <div class="h-full w-1 bg-purple-500 opacity-80 group-hover:opacity-100 transition-all duration-300 relative">
+                                <div class="w-4 h-4 rounded-full bg-purple-400 absolute -left-[6px] top-0"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience 3 -->
+                    <!-- <div class="relative pl-8 sm:pl-32 pb-12 group">
+                        <div class="font-bold text-lg text-green-400 mb-1 sm:mb-0">Research Intern</div>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center sm:gap-4">
+                            <div class="text-gray-300 font-medium">National AI Lab</div>
+                            <div class="text-gray-500 text-sm">2016 - 2018</div>
+                        </div>
+                        <div class="text-gray-400 mt-2">
+                            <p>Conducted research in computational neuroscience and biologically-inspired AI models under the guidance of leading researchers.</p>
+                            <ul class="mt-4 space-y-2 text-gray-500">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <span>Published first-author paper in Nature AI</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <span>Developed spiking neural network architecture</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <span>Collaborated with neuroscientists on brain-computer interfaces</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="absolute left-0 sm:left-0 inset-y-0">
+                            <div class="h-full w-1 bg-green-500 opacity-80 group-hover:opacity-100 transition-all duration-300 relative">
+                                <div class="w-4 h-4 rounded-full bg-green-400 absolute -left-[6px] top-0"></div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Publications Section -->
+    <section id="publications" class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Publications</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Research papers and articles I've contributed to in the field of my research</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Publication 1 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-alt text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Neural network assisted electrostatic global 
+                                gyrokinetic toroidal code using cylindrical coordinates</h3>
+                            <p class="text-gray-400 text-sm">Revision to Journal Nuclear 
+                                Fusion</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        <!-- This paper explores novel approaches to optimizing 3D rendering pipelines for web-based applications, 
+                        focusing on performance improvements and visual fidelity. -->
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://arxiv.org/abs/2408.12851" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500"> arXiv preprint arXiv:2408.12851</span>
+                    </div>
+                </div>
+                
+                <!-- Publication 2 -->
+                <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-book-open text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Zonal flow 
+                                suppression of microturbulent transport in the optimized stellarators W7-X and QSTK</h3>
+                            <p class="text-gray-400 text-sm">Revision to Journal Plasma Phys. Control. Fusion</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        <!-- An in-depth analysis of AR technology adoption in e-commerce platforms, with case studies 
+                        on user engagement and conversion metrics. -->
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://arxiv.org/abs/2501.12722" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">arXiv preprint arXiv:2501.12722</span>
+                    </div>
+                </div>
+                
+                <!-- Publication 3 -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-chart-line text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"Data Visualization Techniques for Complex Datasets"</h3>
+                            <p class="text-gray-400 text-sm">IEEE Transactions on Visualization, 2021</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Presents innovative visualization methods for high-dimensional data, with applications in 
+                        scientific research and business intelligence.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/tvis.2021.078</span>
+                    </div>
+                </div> -->
+                
+                <!-- Publication 4 -->
+                <!-- <div class="card-3d bg-gray-900 rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                            <i class="fas fa-laptop-code text-indigo-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">"WebAssembly for High-Performance Web Applications"</h3>
+                            <p class="text-gray-400 text-sm">ACM SIGGRAPH Web Proceedings, 2020</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Investigates the use of WebAssembly to bring near-native performance to web-based 3D applications, 
+                        with benchmarks and implementation strategies.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                            Read Paper <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                        <span class="text-xs text-gray-500">DOI: 10.1234/sigweb.2020.032</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Me Section -->
+    <section id="about" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col lg:flex-row items-center">
+<div class="lg:w-1/3 mb-12 lg:mb-0 flex justify-center">
+  <div class="relative w-64 h-64 perspective-800">
+    <!-- Blurred Gradient Background -->
+    <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
+
+    <!-- 3D Cube Container -->
+    <div class="cube w-64 h-64 absolute top-0 left-0 mx-auto my-auto" style="transform-style: preserve-3d; animation: spin 8s linear infinite;">
+      <!-- Cube Faces -->
+      <div class="face front" style="background: #6366f1;"></div>
+      <div class="face back" style="background: #7c3aed;"></div>
+      <div class="face right" style="background: #a78bfa;"></div>
+      <div class="face left" style="background: #8b5cf6;"></div>
+      <div class="face top" style="background: #c4b5fd;"></div>
+      <div class="face bottom" style="background: #5b21b6;"></div>
+    </div>
+  </div>
+</div>
+                <div class="lg:w-2/3 lg:pl-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8">About <span class="gradient-text">Me</span></h2>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Journey</h3>
+                        <p class="text-gray-400 mb-4">
+                            With a background rooted in computational physics and data-driven research, I’ve spent the past several years working at the intersection of high-performance computing (HPC), data science, and AI for scientific applications. My journey began with simulation-heavy research in particle and polymer physics, which evolved into a broader focus on building intelligent, automated systems for scientific insight and operational efficiency.
+                        </p>
+                        <p class="text-gray-400 mb-4">
+                            From exploring magnetic field dynamics in plasma to building AI agents for task planning and real-time sentiment analysis, I aim to extract meaning from complexity—using data as the bridge between theory and impactful action.
+                        </p>
+                        <p class="text-gray-400">
+                            I hold a Masters degree in Physics and have contributed to a range of interdisciplinary projects involving scientific computing, machine learning, and HPC pipelines across domains like healthcare, real estate, and advanced materials.
+                        </p>
+                    </div>
+                    
+                    <!-- <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Skills</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-cube text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Three.js</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-react text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">React</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-js text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">JavaScript</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-vr-cardboard text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">WebXR</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fab fa-unity text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Unity</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-database text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">WebGL</span>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Skills</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-code text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Python</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-microchip text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">CUDA</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-project-diagram text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">HPC (SLURM, MPI)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-brain text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">PyTorch</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-chart-line text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Data Analysis</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-flask text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Scientific Simulation</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-database text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Pandas / NumPy</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-vial text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">LAMMPS / OpenFOAM</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-indigo-900 bg-opacity-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-terminal text-indigo-300"></i>
+                                </div>
+                                <span class="text-gray-300">Git & LaTeX</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-300">My Approach</h3>
+                        <p class="text-gray-400">
+                            I specialize in creating systems that combine scientific rigor with data intelligence, from simulating complex physical systems to crafting AI workflows that support faster decisions in technical domains. My philosophy is grounded in clarity, reproducibility, and high-impact design, where HPC meets AI, and insight follows.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
 
-<!-- ------------------------------------------------------------------- -->
-
-    <!-- Projects Section Container -->
-    <div class="projects">
 
 
-        <!-- Project 8 -->
-        <a href="projects/plasmaexplorer.html" class="no-style-link">
-            <div class="projects_container" data-tags="research physics plasma python flask hpc version_control_git 
-            version_control_git">
-                <div class="projects_imgbox">
-                    <!-- <video autoplay muted loop>
-                        <source src="media/file10001-0090.mp4" type="video/mp4">
-                    </video> -->
-                    <img src="media/stellarator-0.gif" alt="Project 1 Image">
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Have a project in mind or want to collaborate? Feel free to reach out!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                <!-- <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="Project Inquiry">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-300" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg font-medium hover:opacity-90 transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div> -->
+
+                <div class="google-form-container">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeEwf9iYuusEPGVZkxkaj04KUTESE2GXHC50WTeKvHpHJ5z9w/viewform?embedded=true" width="640" height="821" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                 </div>
-                <div class="projects_textbox">
-                    <h2>PlasmaExplorer - A parallel processing desktop-web app</h2>
-                    <p>Ever wondered how magnetic fields sculpt the dance of charged particles in fusion devices?
-                        ⚡️ Tokamak or ⚡️ Stellarator? The choice is yours! Adjust the \(B\), \(k\)-fold & \(twist\) to morph between
-                        exotic configurations, or modify the \(core \) values to explore code parallelization in action.</p>            
-                        <p>Skills: 
-                        <span class="skill-box">Research</span>
-                        <span class="skill-box">Plasma Physics</span> 
-                        <span class="skill-box">Python</span>
-                        <span class="skill-box">Flask</span>
-                        <!-- <span class="skill-box">C++</span> -->
-                        <!-- <span class="skill-box">CUDA</span> -->
-                        <!-- <span class="skill-box">NVIDIA NSight</span> -->
-                        <span class="skill-box">Supercomputing(HPC)</span>
-                        <!-- <span class="skill-box">Docker</span> -->
-                        <span class="skill-box">Version Control: Git</span>
-                    </p>
-                    
+                
+                <div>
+                    <div class="card-3d bg-gray-900 rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold mb-6 text-gray-300">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Email</h4>
+                                    <a href="mailto:contact@example.com" class="text-indigo-400 hover:text-indigo-300">joydeep.das39@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone-alt text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Phone</h4>
+                                    <a href="tel:+1234567890" class="text-indigo-400 hover:text-indigo-300">+1 (234) 567-890</a>
+                                </div>
+                            </div> -->
+                            
+                            <!-- <div class="flex items-start">
+                                <div class="bg-indigo-900 bg-opacity-50 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-map-marker-alt text-indigo-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-300 mb-1">Location</h4>
+                                    <p class="text-gray-400">San Francisco, CA</p>
+                                </div>
+                            </div> -->
+
+                        </div>
+                        
+                        <div class="mt-12">
+                            <h3 class="text-xl font-bold mb-6 text-gray-300">Connect With Me</h3>
+                            <div class="flex space-x-4">
+                                <a href="https://www.linkedin.com/in/--joydeep--das" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-linkedin-in text-gray-300 text-xl"></i>
+                                </a>
+                                <a href="https://github.com/joydeepdascode/" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-github text-gray-300 text-xl"></i>
+                                </a>
+                                <!-- <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-twitter text-gray-300 text-xl"></i>
+                                </a> -->
+                                <!-- <a href="https://joydeepdascode.github.io/Joydeep/" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-900 hover:bg-opacity-50 transition duration-300">
+                                    <i class="fab fa-dribbble text-gray-300 text-xl"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </a>    
-
-        <!-- Project 7 -->
-        <a href="projects/unified_gpu.html" class="no-style-link">
-            <div class="projects_container" data-tags="hpc nvidia-nsight python cuda c++ 
-            version_control_git">
-                <div class="projects_imgbox">
-                    <!-- <video autoplay muted loop>
-                        <source src="media/file10001-0090.mp4" type="video/mp4">
-                    </video> -->
-                    <img src="media/unified.jpg" alt="Project 1 Image">
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-80 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold gradient-text">PORTFOLIO</a>
                 </div>
-                <div class="projects_textbox">
-                    <h2>Optimizing GPU Data Transfers for Monte Carlo Simulations in Healthcare</h2>
-                    <p>Addressing the Bottleneck for CPU-GPU Data Transfers in Monte Carlo 
-                       Simulations of Radiation Therapy Planning, this project uses CUDA Unified 
-                       Memory in combination with batching techniques in order to reduce transfer 
-                       latency and enhance runtime efficiency. Utilizing Python, C++, and NVIDIA 
-                       Nsight Systems, it shows better scalability and performance in support of 
-                       advanced GPU-accelerated healthcare simulations.</p>            
-                       <p>Skills: 
-                        <span class="skill-box">Python</span>
-                        <span class="skill-box">C++</span>
-                        <span class="skill-box">CUDA</span>
-                        <span class="skill-box">NVIDIA NSight</span>
-                        <span class="skill-box">Supercomputing(HPC)</span>
-                        <span class="skill-box">Docker</span>
-                        <span class="skill-box">Version Control: Git</span>
-                    </p>
-                    
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-gray-400 hover:text-white">Home</a>
+                    <a href="#projects" class="text-gray-400 hover:text-white">Projects</a>
+                    <a href="#publications" class="text-gray-400 hover:text-white">Publications</a>
+                    <a href="#about" class="text-gray-400 hover:text-white">About</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
                 </div>
             </div>
-            </a>         
-
-        <!-- Project 1 -->
-        <a href="projects/eq_ptg.html" class="no-style-link">
-        <div class="projects_container" data-tags="physics plasma hpc research fortran python 
-        git latex version_control_git">
-            <div class="projects_imgbox">
-                <!-- <video autoplay muted loop>
-                    <source src="media/tkm.mp4" type="video/mp4">
-                </video> -->
-                <img src="media/Tkm_gif.gif" alt="Project 1 Image">
-                <!-- <img src="media/0001-0090.mp4" alt="Project 1 Image"> -->
-            </div>
-            <div class="projects_textbox">
-                <h2>Study of equilibrium properties of Aditya-U Tokamak and DIII-D Tokamak</h2>
-                <p>A python based interface is written, to
-                initially read the EFIT file from Aditya-U, and visualize 
-                the limiter boundaries, last closed magnetic flux surface. 
-                Magnetic Flux surfaces are generated using Euler-Method of 
-                integration which is eventually used for simulation grids construction on 
-                top of the flux surface contours in a chosen poloidal plane.</p>            
-                <p>Skills: 
-                    <span class="skill-box">Particle-In-Cell(PIC)</span>
-                    <span class="skill-box">Plasma Physics</span>  
-                    <span class="skill-box">Research</span>
-                    <span class="skill-box">Supercomputing(HPC)</span>
-                    <span class="skill-box">Python</span>
-                    <span class="skill-box">Fortran</span>
-                    <span class="skill-box">LaTeX</span>
-                    <span class="skill-box">GitHub</span>
-                    <span class="skill-box">Version Control: Git</span>
-                    <span class="skill-box">Overleaf</span>
-                </p>
-            </div>
-        </div>
-        </a>
-
-        <!-- Project 2 -->
-        <a href="projects/mol_theta.html" class="no-style-link">
-        <div class="projects_container" data-tags="python matlab git molecular physics research latex version_control_git">
-            <div class="projects_imgbox">
-                <img src="media/Rg2T.png" alt="Project 2 Image">
-            </div>
-            <div class="projects_textbox">
-                <h2>Molecular Dynamics Simulation of a coarse-grained linear polymer chain 
-                model under varying conditions; and estimation of the θ-solvent of the 
-                model</h2>
-                <p>Polymers are collections of monomers, each made up of atoms and 
-                molecules, displaying complex properties when in a solvent. A key 
-                property is when a polymer behaves like an ideal chain, leading to the 
-                concept of a θ-solvent, where simulations of coarse-grained linear polymer 
-                chains help estimate this behavior under various conditions.</p>
-                <p>Skills: 
-                    <span class="skill-box">LAMMPS</span>
-                    <span class="skill-box">Physics</span>
-                    <span class="skill-box">Research</span>
-                    <span class="skill-box">Python</span>
-                    <span class="skill-box">MATLAB</span>   
-                    <span class="skill-box">LaTeX</span>
-                    <span class="skill-box">Version Control: Git</span>
-                    <span class="skill-box">Overleaf</span>
-                </p>
-            </div>
-        </div>
-        </a>
-
-        <!-- Project 3 -->
-        <a href="projects/mol_coil.html" class="no-style-link">
-        <div class="projects_container" data-tags="fortran git molecular physics research latex version_control_git">
-            <div class="projects_imgbox">
-                <img src="media/mol_coil1E.png" alt="Project 2 Image">
-            </div>
-            <div class="projects_textbox">
-                <h2>Review on the dynamics and coil-globule phase transition of 
-                single-stranded polymers in two dimensions</h2>
-                <p>Research on polymers, which began in the 19th century, 
-                underscores their significance in daily materials. Understanding 
-                polymer dynamics is essential due to its extensive applications 
-                in science and technology. This study explores both theoretical 
-                and experimental perspectives, focusing on Brownian motion, 
-                ideal chain dynamics, and temperature-induced coil-globule 
-                transitions. The final chapter provides a summary of the key 
-                findings.</p>
-                <p>Skills: 
-                    <span class="skill-box">Physics</span>
-                    <span class="skill-box">Research</span>
-                    <span class="skill-box">Fortran</span>
-                    <span class="skill-box">LaTeX</span>
-                    <span class="skill-box">Version Control: Git</span>
-                </p>
-            </div>
-        </div>
-        </a>
-
-        <!-- Project 4 -->
-        <a href="projects/penrose.html" class="no-style-link">
-        <div class="projects_container" data-tags="physics research latex">
-            <div class="projects_imgbox">
-                <img src="media/FIG2E.png" alt="Project 2 Image">
-            </div>
-            <div class="projects_textbox">
-                <h2>A Conformal Treatment of Minkowski and Schwarzschild Spacetime</h2>
-                <p>A brief introduction to physical spacetimes such as Minkowski 
-                and Schwarzschild is presented initially. This is followed by a 
-                conformal mapping of these spacetimes to explore their asymptotic 
-                properties. Lastly, the resulting compact structure from the mapping 
-                is discussed. Figure on left taken from  Penrose R. General Relativity 
-                and Gravitation, 03 2011</p>
-                <p>Skills: 
-                    <span class="skill-box">General Relativity</span>
-                    <span class="skill-box">Physics</span>
-                    <span class="skill-box">Research</span>
-                    <span class="skill-box">LaTeX</span>
-                    <span class="skill-box">Overleaf</span>
-                </p>
-            </div>
-        </div>
-        </a>        
-
-        <!-- Project 5 -->
-        <a href="projects/larmor1.html" class="no-style-link">        
-        <div class="projects_container" data-tags="physics research">
-            <div class="projects_imgbox">
-                <img src="media/larmor1E.png" alt="Project 2 Image">
-            </div>
-            <div class="projects_textbox">
-                <h2>Larmor’s Formula and its Application to cyclotron emission</h2>
-                <p>Larmor's approach to the relationship between moving charged 
-                particles and the radiation they emit is introduced. The derivation 
-                of Larmor's formula using electromagnetic potential is presented. 
-                Finally, the application of Larmor's principle to the concept of 
-                cyclotron and its scientific and industrial implications is discussed.</p>
-                <p>Skills: 
-                    <span class="skill-box">Electromagnetic Theory</span>
-                    <span class="skill-box">Physics</span>
-                    <span class="skill-box">Research</span>
-                </p>
-            </div>
-        </div>
-        </a>
-
-        <!-- Add more project containers as needed -->
-    </div>
-
-<!-- ------------------------------------------------------------------- -->
-
-    <div id="contact" class="contact-section">
-        <h2>Contact Me</h2>
-        <p>I would love to hear from you! Please fill out the form below to get in touch.</p>
-
-        <!-- Google Form Embed -->
-        <div class="google-form-container">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeEwf9iYuusEPGVZkxkaj04KUTESE2GXHC50WTeKvHpHJ5z9w/viewform?embedded=true" width="640" height="821" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            <!-- <iframe width="640px" height="640px" src="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAEH5eA1UMkxDV1k2QUJXNkQ4NzEzUzdCMk1CM0JRSS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe> -->
-        </div>
-    </div>
-
-<!-- ------------------------------------------------------------------- -->
-<br>
-<h3 style="text-align: center;">Have any queries? Ask me</h3>
-
-    <div class="profile-container">
-        <div class="linkedin-section">
-            <img src="media/pic.jpeg" alt="Joydeep Das" class="profile-pic">
-            <div class="linkedin-text">
-                <h2>Joydeep Das</h2>
-                <h3>HPC & Physics Researcher | Plasma Simulations | Machine Learning</h3>
-                <p>Let's connect on HPC, simulations, and research. Contact me for any queries.<br><br>
-                    
-                    <a href="mailto:joydeep.das39@gmail.com" target="_blank" class="linkedin-link">Email - joydeep.das39@gmail.com</a>
-                </p>
-                <a href="https://www.linkedin.com/in/--joydeep--das/" target="_blank" class="linkedin-button">View My LinkedIn</a>
-            </div>
-        </div>
-    </div>    
-
-<!-- ------------------------------------------------------------------- -->        
-
-    <!-- <div id="visitor-location">Detecting your location...</div>
-
-    <p>Your location and visit will be recorded with your permission.</p>
-    <button id="trackLocation">Allow Location Tracking</button> -->
-    <!-- VISITOR
-    <p id="visitCount"></p> -->
-
-
-
-<!-- ------------------------------------------------------------------- -->        
-
-    <!-- Footer Section -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p>© 2025 Joydeep Das. Feel free to share with attribution.</p>
-            <div class="footer-social">
-                <a href="https://www.linkedin.com/in/--joydeep—das" target="_blank">LinkedIn</a> |
-                <a href="https://github.com/joydeepdascode" target="_blank">GitHub</a> |
-                <a href="https://www.instagram.com/_.joydeep._das/" target="_blank">Instagram</a> 
-                <!-- <a href="https://twitter.com/joydeepdas" target="_blank">Twitter</a> -->
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2025 Joydeep Das. All rights reserved.</p>
             </div>
         </div>
     </footer>
+    
+    <script>
+        // Initialize Three.js scene
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            // Create scene
+            const scene = new THREE.Scene();
+            
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.z = 30;
+            
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            container.appendChild(renderer.domElement);
+            
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 100;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.2,
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.x += 0.0005;
+                particlesMesh.rotation.y += 0.001;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                
+                renderer.setSize(width, height);
+            });
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.add('hidden');
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Section observer for animations
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
 
-<!-- ------------------------------------------------------------------- -->      
+        // Project filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initThreeJS();
+            
+            // Activate home section immediately
+            document.querySelector('#home').classList.add('active');
 
-    <!-- Link to external JavaScript file -->
-    <script src="scripts/script_JS.js"></script> 
+            // Project filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('[data-category]');
 
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active state of buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Animate the filtered projects
+                    const visibleCards = document.querySelectorAll(`[data-category]:not([style*="display: none"]), [data-category="${filterValue}"]`);
+                    visibleCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                                card.style.transition = 'all 0.5s ease';
+                            }, 50);
+                        }, index * 100);
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
