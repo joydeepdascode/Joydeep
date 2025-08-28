@@ -8,6 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
         
@@ -16,6 +21,8 @@
             overflow-x: hidden;
             background: #0f0f1a;
             color: #e0e0e0;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         
         #canvas-container {
@@ -48,7 +55,7 @@
         }
         
         .section {
-            min-height: 100vh;
+            min-height: auto;
             padding: 5rem 2rem;
             opacity: 0;
             transform: translateY(50px);
@@ -58,6 +65,44 @@
         .section.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Custom gradient text for titles */
+        .gradient-text {
+            background: linear-gradient(90deg, #6366F1, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .carousel-item {
+            flex-shrink: 0;
+            width: 100vw; /* Each slide is full viewport width */
+            /* Use a height-fit approach to avoid content overflow */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .text-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .arrow-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .image-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         .card-3d {
@@ -148,6 +193,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#work" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">View My Work</a>
                         <a href="#projects" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects & Experience</a>
                         <a href="#publications" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Publications</a>
                         <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About Me</a>
@@ -166,6 +212,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Home</a>
+                <a href="#work" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Projects & Experience</a>
                 <a href="#projects" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Projects & Experience</a>
                 <a href="#publications" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">Publications</a>
                 <a href="#about" class="nav-link block px-3 py-2 text-base font-medium text-gray-300 hover:text-white">About Me</a>
@@ -183,13 +230,13 @@
                         Hi, I'm <span class="gradient-text">Joydeep Das</span>
                     </h1>
                     <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-300">
-                        AI Researcher & HPC Developer
+                        Researcher & HPC Developer
                     </h2>
                     <p class="text-lg mb-8 text-gray-400 max-w-lg">
                         I create intelligent systems and high-performance scientific tools that transform complex data into actionable insights, blending AI innovation with rigorous research.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full font-medium hover:opacity-90 transition duration-300">
+                        <a href="#work" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full font-medium hover:opacity-90 transition duration-300">
                             View My Work
                         </a>
                         <a href="#contact" class="px-6 py-3 border border-indigo-500 text-indigo-400 rounded-full font-medium hover:bg-indigo-900 hover:bg-opacity-30 transition duration-300">
@@ -210,7 +257,220 @@
             </div>
         </div>
     </section>
+
+
+    <!-- Projects Section -->
+    <section id="work" class="section bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-2">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">View my <span class="gradient-text">Work</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Here are some of my recent works that showcase my skills and expertise</p>
+            </div>
+        </div>
+    </section>
+
     
+    <section id="work" class="w-full h-full relative flex items-start justify-center">
+        <!-- Carousel container -->
+        <div id="carousel" class="w-full h-full relative overflow-hidden">
+            <!-- Inner carousel element that will be transformed -->
+            <div id="carousel-inner" class="carousel-inner w-full h-full">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item p-4 md:p-8 flex items-center justify-center">
+                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-7xl flex flex-col lg:flex-row items-center justify-center lg:justify-between space-y-8 lg:space-y-0 lg:space-x-12">
+                        <!-- Image and Description Column -->
+                        <div class="flex flex-col items-center lg:items-start lg:w-1/2 space-y-6">
+                            <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center lg:text-left"><span class="gradient-text">NBI Effects in Stellarator (W7-X)</span></h3>
+                            
+                            <!-- Corrected Image Grid: Using a stable grid layout for responsiveness -->
+                            <div class="image-grid w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Image 1 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                                <img src="media/elcpic1.png" 
+                                    alt="Astronaut Landing" 
+                                    class="rounded-lg w-full h-64 object-cover mb-2">
+
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Sample illustration of helical Motion for Ion and Electron Motion in uniform B</p>
+                                        <!-- <p>Source: Wikimedia Commons<a href="https://commons.wikimedia.org/wiki/File:Stellarator_magnetic_field.png">(Link)</a></p> -->
+                                    </div>
+                                </div>
+                                <!-- Image 2 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                                <img src="media/elcpic2.png" 
+                                    alt="Astronaut Landing" 
+                                    class="rounded-lg w-full h-64 object-cover mb-2">
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Hybrid Subcylcing Motion of Ion and electron - Sample</p>
+                                        <!-- <p>Source: Peter C De Vries <a href="https://www.researchgate.net/publication/267301439_THWP7-17_Interpretive_modelling_of_neutral_particle_fluxes_generated_by_NBI_ions_in_JET">(Link)</a></p> -->
+                                    </div>
+                                </div>
+                                
+                                <!-- Image 3 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl md:col-span-2">
+                                    <!-- <img src="https://placehold.co/350x200/10B981/FFFFFF?text=Spacesuit+UI" alt="Spacesuit UI" class="rounded-lg w-full mb-2"> -->
+                                    <!-- <video controls class="rounded-lg w-full mb-2">
+                                        <source src="media/eqb_stel.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video> -->
+                                    <div class="relative w-full mb-2">
+                                        <video id="demoVideo" autoplay loop muted playsinline class="rounded-lg w-full">
+                                            <source src="media/elc_tkm.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+
+                                        <!-- Pause/Play Button -->
+                                        <button 
+                                            id="toggleBtn" 
+                                            class="absolute bottom-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-lg">
+                                            Pause
+                                        </button>
+                                    </div>
+
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Some of the key equations involved in the work</p>
+                                        <!-- <p>Source: Custom Design & Data</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Boxes Column -->
+                        <div class="flex flex-col space-y-6 lg:w-1/2">
+                            <h4 class="text-xl md:text-2xl font-bold text-center lg:text-left">Project Details</h4>
+                            <!-- Text Box 1 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Scene Description</h5>
+                                <p class="text-gray-300 text-sm">Many Particle-In-Cell(PIC) codes, relies magnetic flux coordinates to model the equilibrium magnetic field, which however faces a singularity at the X-point.</p>
+                            </div>
+                            <!-- Text Box 2 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Current State</h5>
+                                <p class="text-gray-300 text-sm">Using first principles, based on cylindrical coordinates we model the plasma equilibrium and perform the PIC simulation benchmarking the ITG Turbulent transport.</p>
+                            </div>
+                            <!-- Text Box 3 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Technique</h5>
+                                <p class="text-gray-300 text-sm">Developed a kinetic electron model, beginning with state definitions, implementing electron sub-cycling pushes within a hybrid framework, and incorporating the gyrokinetic Poisson equation.</p>
+                            </div>
+                            <!-- Text Box 4 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Future Scope</h5>
+                                <p class="text-gray-300 text-sm">The next stage of development involves benchmarking ITG and TEM turbulence within the kinetic electron model.</p>
+                            </div>
+                            <i>Note: For privacy, security, and copyright reasons, actual device geometries and equilibrium/simulation outputs of the work are not displayed here.</i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item p-4 md:p-8 flex items-center justify-center">
+                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-7xl flex flex-col lg:flex-row items-center justify-center lg:justify-between space-y-8 lg:space-y-0 lg:space-x-12">
+                        <!-- Image and Description Column -->
+                        <div class="flex flex-col items-center lg:items-start lg:w-1/2 space-y-6">
+                            <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center lg:text-left"><span class="gradient-text">NBI Effects in Stellarator (W7-X)</span></h3>
+                            
+                            <!-- Corrected Image Grid: Using a stable grid layout for responsiveness -->
+                            <div class="image-grid w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Image 1 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                                <img src="media/Stellarator_magnetic_field_ref.png" 
+                                    alt="Astronaut Landing" 
+                                    class="rounded-lg w-full h-48 object-cover mb-2">
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Magnetic Flux Surface of a Stellarator</p>
+                                        <p>Source: Wikimedia Commons<a href="https://commons.wikimedia.org/wiki/File:Stellarator_magnetic_field.png">(Link)</a></p>
+                                    </div>
+                                </div>
+                                <!-- Image 2 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
+                                    <img src="media/stel2.png" 
+                                        alt="Planet Discovery" 
+                                        class="rounded-lg w-full h-48 object-cover mb-2">
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Sample figure for NBI</p>
+                                        <p>Source: Peter C De Vries <a href="https://www.researchgate.net/publication/267301439_THWP7-17_Interpretive_modelling_of_neutral_particle_fluxes_generated_by_NBI_ions_in_JET">(Link)</a></p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Image 3 -->
+                                <div class="image-card rounded-xl shadow-lg bg-gray-900 bg-opacity-50 p-4 transition-transform duration-300 transform hover:scale-105 hover:shadow-xl md:col-span-2">
+                                    <!-- <img src="https://placehold.co/350x200/10B981/FFFFFF?text=Spacesuit+UI" alt="Spacesuit UI" class="rounded-lg w-full mb-2"> -->
+                                    <!-- <video controls class="rounded-lg w-full mb-2">
+                                        <source src="media/eqb_stel.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video> -->
+                                    <div class="relative w-full mb-2">
+                                        <video id="demoVideo" autoplay loop muted playsinline class="rounded-lg w-full">
+                                            <source src="media/eqb_stel.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+
+                                        <!-- Pause/Play Button -->
+                                        <button 
+                                            id="toggleBtn" 
+                                            class="absolute bottom-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-lg">
+                                            Pause
+                                        </button>
+                                    </div>
+
+                                    <div class="text-sm text-gray-400">
+                                        <p class="font-bold">Some of the key equations involved in the work</p>
+                                        <!-- <p>Source: Custom Design & Data</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Boxes Column -->
+                        <div class="flex flex-col space-y-6 lg:w-1/2">
+                            <h4 class="text-xl md:text-2xl font-bold text-center lg:text-left">Project Details</h4>
+                            <!-- Text Box 1 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Scene Description</h5>
+                                <p class="text-gray-300 text-sm">The stabilization of turbulent transport through neoclassical effects induced by NBI heating has been studied for a long time; however, realistic modeling of these effects remains unavailable even today.</p>
+                            </div>
+                            <!-- Text Box 2 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Available Methods</h5>
+                                <p class="text-gray-300 text-sm">Codes for modeling NBI and its neoclassical effects have been studied in various ways in tokamak scenarios, and to a limited extent in stellarator plasmas.</p>
+                            </div>
+                            <!-- Text Box 3 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Techniques</h5>
+                                <p class="text-gray-300 text-sm">A complete modeling of NBI particles in stellarator plasmas was carried out using realistic data and first-principle methods implemented in FORTRAN.</p>
+                            </div>
+                            <!-- Text Box 4 -->
+                            <div class="text-box p-6 rounded-2xl">
+                                <h5 class="text-lg font-semibold text-indigo-400 mb-2">Results and Future Scope</h5>
+                                <p class="text-gray-300 text-sm">The reproduction of the NBI energy distribution was achieved in its thermalized state. The effects of NBI on neoclassical and turbulent transport can be further extended for detailed study.</p>
+
+                            </div>
+                            <i>Note: For privacy, security, and copyright reasons, actual device geometries and equilibrium/simulation outputs of the work are not displayed here.</i>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+        </div>
+
+        <!-- Left Arrow -->
+        <button id="prev-btn" class="arrow-btn absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg z-10 hover:bg-gray-600 transition duration-300">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <!-- Right Arrow -->
+        <button id="next-btn" class="arrow-btn absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-lg z-10 hover:bg-gray-600 transition duration-300">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="section bg-black bg-opacity-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -657,7 +917,6 @@
         </div>
     </section>
 
-
     
     <!-- Experience Section -->
     <section id="experience" class="section bg-black bg-opacity-50">
@@ -675,7 +934,7 @@
                         <div class="font-bold text-lg text-indigo-400 mb-1 sm:mb-0">Computational Researcher</div>
                         <div class="flex flex-col sm:flex-row items-start sm:items-center sm:gap-4">
                             <div class="text-gray-300 font-medium">Indian Institute of Science, Bangalore</div>
-                            <div class="text-gray-500 text-sm">2021 - Present</div>
+                            <div class="text-gray-500 text-sm">Feb. 2021 - July 2025</div>
                         </div>
                         <div class="text-gray-400 mt-2">
                             <!-- <p>Leading research in generative AI models, developing novel architectures for image and text generation, and publishing papers in top-tier conferences.</p> -->
@@ -773,7 +1032,7 @@
     <section id="publications" class="section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Publications</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4"><span class="gradient-text">Publications</span></h2>
                 <p class="text-gray-400 max-w-2xl mx-auto">Research papers and articles I've contributed to in the field of my research</p>
             </div>
             
@@ -820,7 +1079,7 @@
                         on user engagement and conversion metrics. -->
                     </p>
                     <div class="flex justify-between items-center">
-                        <a href="https://arxiv.org/abs/2501.12722" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        <a href="https://iopscience.iop.org/article/10.1088/1361-6587/adf91b" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
                             Read Paper <i class="fas fa-external-link-alt ml-2"></i>
                         </a>
                         <span class="text-xs text-gray-500">arXiv preprint arXiv:2501.12722</span>
@@ -1305,6 +1564,90 @@
                 });
             });
         });
+
+
+
+        // Carousel
+
+         document.addEventListener('DOMContentLoaded', () => {
+            const carouselInner = document.getElementById('carousel-inner');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const totalSlides = 2;
+            let currentSlide = 0;
+            let startX = 0;
+            let isSwiping = false;
+
+            /**
+             * Updates the carousel's position based on the current slide index.
+             */
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            }
+
+            // Navigation button event listeners
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+            
+            // Touch event listeners for swiping
+            carouselInner.addEventListener('touchstart', (e) => {
+                isSwiping = true;
+                startX = e.touches[0].clientX;
+            });
+
+            carouselInner.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const currentX = e.touches[0].clientX;
+                const diffX = startX - currentX;
+                // Move the carousel based on touch drag
+                carouselInner.style.transform = `translateX(calc(-${currentSlide * 100}vw - ${diffX}px))`;
+            });
+
+            carouselInner.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+
+                // Determine swipe direction and change slide if swipe is significant
+                if (diffX > 50) { // Swipe left
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                } else if (diffX < -50) { // Swipe right
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                }
+                
+                updateCarousel(); // Snap back to the correct slide
+            });
+
+            // Handle window resize to ensure correct positioning
+            window.addEventListener('resize', () => {
+                updateCarousel();
+            });
+            
+            // Initial positioning on load
+            updateCarousel();
+        });
+
+        const video = document.getElementById("demoVideo");
+        const toggleBtn = document.getElementById("toggleBtn");
+
+        toggleBtn.addEventListener("click", () => {
+            if (video.paused) {
+            video.play();
+            toggleBtn.textContent = "Pause";
+            } else {
+            video.pause();
+            toggleBtn.textContent = "Play";
+            }
+        });
+    
     </script>
 </body>
 </html>
