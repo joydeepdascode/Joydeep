@@ -7,44 +7,77 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-6">
-    <div class="max-w-2xl w-full bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-8">
+    <div class="max-w-3xl w-full bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-8">
         <header class="mb-8 text-center">
             <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                Edge AI Business Strategist
+                AI Automation Strategy Generator
             </h1>
-            <p class="text-slate-400 mt-2">AI-powered strategy generation running in your browser.</p>
+            <p class="text-slate-400 mt-2">Discover which business processes can be automated to achieve your goals.</p>
         </header>
-        <div class="space-y-4 mb-8">
-            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
-                <input type="checkbox" value="Streamline Finance and Invoicing" class="w-4 h-4 text-emerald-500">
-                <span class="ml-3">Streamline Finance & Invoicing</span>
-            </label>
-            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
-                <input type="checkbox" value="Scale Customer Support with AI" class="w-4 h-4 text-emerald-500">
-                <span class="ml-3">Scale Customer Support</span>
-            </label>
-            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
-                <input type="checkbox" value="Optimize Supply Chain Logistics" class="w-4 h-4 text-emerald-500">
-                <span class="ml-3">Optimize Supply Chain</span>
-            </label>
+        
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-emerald-400 mb-4">What business results do you want to achieve?</h2>
+            <p class="text-sm text-slate-400 mb-4">Select one or more goals:</p>
+            
+            <div class="space-y-3">
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="reduce_costs" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Reduce Operational Costs</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Lower expenses through process efficiency</p>
+                </label>
+                
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="improve_accuracy" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Improve Data Accuracy</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Eliminate manual errors and inconsistencies</p>
+                </label>
+                
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="scale_operations" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Scale Operations Faster</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Handle more volume without proportional headcount increase</p>
+                </label>
+                
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="improve_response_time" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Faster Response Times</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Deliver 24/7 service and instant replies</p>
+                </label>
+                
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="better_insights" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Better Data-Driven Insights</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Make smarter decisions with predictive analytics</p>
+                </label>
+                
+                <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" value="enhance_experience" class="goal-checkbox w-4 h-4 text-emerald-500">
+                    <span class="ml-3 font-medium">Enhance Customer Experience</span>
+                    <p class="ml-7 text-xs text-slate-400 mt-1">Provide personalized, seamless interactions</p>
+                </label>
+            </div>
         </div>
+        
         <button id="generate-btn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-            Generate AI Strategy
+            Generate Automation Roadmap
         </button>
+        
         <div id="status-container" class="hidden mt-6">
             <div class="w-full bg-slate-700 rounded-full h-2 mb-2">
                 <div id="progress-bar" class="bg-emerald-500 h-2 rounded-full w-0 transition-all duration-300"></div>
             </div>
-            <p id="status-text" class="text-xs text-slate-400 text-center">Initializing AI...</p>
+            <p id="status-text" class="text-xs text-slate-400 text-center">Analyzing automation opportunities...</p>
         </div>
+        
         <div id="result-box" class="hidden mt-8 p-6 bg-slate-900 rounded-xl border-l-4 border-emerald-500">
-            <h3 class="text-emerald-400 font-bold mb-2 flex items-center">
-                <span class="mr-2">✨</span> Proposed Action Plan:
+            <h3 class="text-emerald-400 font-bold mb-4 flex items-center text-xl">
+                <span class="mr-2">🤖</span> Recommended Automation Strategy
             </h3>
-            <p id="ai-output" class="text-slate-300 leading-relaxed whitespace-pre-line"></p>
+            <div id="ai-output" class="text-slate-300 leading-relaxed space-y-6"></div>
         </div>
     </div>
-    <script type="module">
+    
+    <script>
     const btn = document.getElementById('generate-btn');
     const statusContainer = document.getElementById('status-container');
     const progressBar = document.getElementById('progress-bar');
@@ -52,87 +85,289 @@
     const resultBox = document.getElementById('result-box');
     const aiOutput = document.getElementById('ai-output');
 
-    // Strategy templates based on business goals
-    const strategies = {
-        "Streamline Finance and Invoicing": {
-            steps: [
-                "Implement automated invoice generation using AI-powered document processing to reduce manual entry errors by 85%",
-                "Deploy machine learning models for payment prediction and cash flow forecasting",
-                "Integrate real-time financial dashboards with anomaly detection for fraud prevention",
-                "Automate recurring billing cycles and payment reminders with smart scheduling"
-            ],
-            roi: "Expected ROI: 40% reduction in processing time, 95% fewer errors",
-            timeframe: "Implementation: 3-6 months"
+    // Automation opportunities mapped to business goals
+    const automationMap = {
+        reduce_costs: {
+            title: "Cost Reduction Automations",
+            opportunities: [
+                {
+                    dept: "Finance & Accounting",
+                    tasks: [
+                        "Automated Invoice Processing: Eliminate 85% of manual data entry using OCR technology to scan and extract invoice details",
+                        "Expense Management: Auto-categorize receipts and match them to bank statements, reducing processing time from hours to minutes",
+                        "Payroll Processing: Calculate withholdings, benefits, and direct deposits automatically with zero errors"
+                    ],
+                    tech: "RPA + OCR",
+                    impact: "Save 15-20 hours/week per finance employee"
+                },
+                {
+                    dept: "Operations & Supply Chain",
+                    tasks: [
+                        "Inventory Reordering: Automatically trigger purchase orders when stock hits threshold levels",
+                        "Order Fulfillment: Sync sales channels with warehouses to generate shipping labels instantly"
+                    ],
+                    tech: "RPA + IoT Sensors",
+                    impact: "Reduce inventory holding costs by 25-30%"
+                }
+            ]
         },
-        "Scale Customer Support with AI": {
-            steps: [
-                "Deploy AI chatbots trained on your knowledge base to handle tier-1 support queries (60-80% resolution rate)",
-                "Implement sentiment analysis to prioritize urgent customer issues and route to appropriate agents",
-                "Create automated ticket categorization and intelligent routing based on historical patterns",
-                "Establish AI-powered quality assurance monitoring for support interactions"
-            ],
-            roi: "Expected ROI: 50% reduction in response time, 3x support capacity",
-            timeframe: "Implementation: 2-4 months"
+        improve_accuracy: {
+            title: "Accuracy Enhancement Automations",
+            opportunities: [
+                {
+                    dept: "Finance & Accounting",
+                    tasks: [
+                        "Financial Reporting: Consolidate data from multiple sources to create P&L statements with zero human error",
+                        "Automated Bank Reconciliation: Match transactions across systems and flag discrepancies immediately"
+                    ],
+                    tech: "RPA + Machine Learning",
+                    impact: "Achieve 99.9% data accuracy, down from 92%"
+                },
+                {
+                    dept: "Marketing & Sales",
+                    tasks: [
+                        "CRM Data Entry: Auto-update contact information from email signatures and LinkedIn profiles",
+                        "Lead Scoring: Use ML to accurately rank prospects based on conversion likelihood"
+                    ],
+                    tech: "AI + Natural Language Processing",
+                    impact: "Reduce CRM data errors by 95%"
+                },
+                {
+                    dept: "Operations & Supply Chain",
+                    tasks: [
+                        "Quality Control: Deploy computer vision AI cameras to detect product defects on production lines"
+                    ],
+                    tech: "Computer Vision + Machine Learning",
+                    impact: "Catch 98% of defects before shipping"
+                }
+            ]
         },
-        "Optimize Supply Chain Logistics": {
-            steps: [
-                "Deploy predictive analytics for demand forecasting using historical sales and market trends",
-                "Implement AI-driven inventory optimization to reduce holding costs by 25-35%",
-                "Automate supplier performance monitoring with real-time alerts for delays or quality issues",
-                "Utilize route optimization algorithms to reduce shipping costs and improve delivery times"
-            ],
-            roi: "Expected ROI: 30% cost reduction, 20% faster delivery",
-            timeframe: "Implementation: 4-8 months"
+        scale_operations: {
+            title: "Scalability Automations",
+            opportunities: [
+                {
+                    dept: "Marketing & Sales",
+                    tasks: [
+                        "Email Campaign Automation: Trigger personalized sequences based on user behavior (abandoned carts, browsing patterns)",
+                        "Social Media Management: Schedule posts across all platforms and auto-respond to basic comments"
+                    ],
+                    tech: "Marketing Automation Platform + AI",
+                    impact: "Manage 10x more leads with same team size"
+                },
+                {
+                    dept: "Customer Support",
+                    tasks: [
+                        "AI Chatbot Deployment: Handle 60-80% of Tier 1 support queries (FAQs, order tracking, returns) 24/7",
+                        "Automated Ticket Routing: Assign tickets to correct department based on keyword analysis"
+                    ],
+                    tech: "Conversational AI (LLMs) + NLP",
+                    impact: "Support 3x more customers without hiring"
+                },
+                {
+                    dept: "Human Resources",
+                    tasks: [
+                        "Applicant Screening: Filter resumes automatically based on required skills and experience",
+                        "Automated Onboarding: Send contracts, provision software access, and assign training modules"
+                    ],
+                    tech: "RPA + AI Screening",
+                    impact: "Process 500+ applications in the time it takes to manually review 50"
+                }
+            ]
+        },
+        improve_response_time: {
+            title: "Speed & Responsiveness Automations",
+            opportunities: [
+                {
+                    dept: "Customer Support",
+                    tasks: [
+                        "24/7 AI Chatbots: Provide instant answers to common questions at any time of day",
+                        "Sentiment Analysis: Automatically flag urgent or angry customer messages for immediate human escalation"
+                    ],
+                    tech: "Conversational AI + Sentiment Analysis",
+                    impact: "Reduce average response time from 4 hours to under 60 seconds"
+                },
+                {
+                    dept: "Operations & Supply Chain",
+                    tasks: [
+                        "Real-Time Order Tracking: Automatically update customers on shipment status at each milestone",
+                        "Instant Quote Generation: Use AI to analyze requirements and provide pricing in seconds"
+                    ],
+                    tech: "API Integration + Machine Learning",
+                    impact: "Deliver instant responses instead of 24-48 hour waits"
+                }
+            ]
+        },
+        better_insights: {
+            title: "Data Intelligence Automations",
+            opportunities: [
+                {
+                    dept: "Finance & Accounting",
+                    tasks: [
+                        "Predictive Cash Flow Analysis: Use ML to forecast incoming payments and identify potential shortfalls",
+                        "Automated Financial Dashboards: Real-time P&L, burn rate, and KPI visualization with anomaly detection"
+                    ],
+                    tech: "Machine Learning + BI Tools",
+                    impact: "Predict cash crunches 30-60 days in advance"
+                },
+                {
+                    dept: "Marketing & Sales",
+                    tasks: [
+                        "Conversion Prediction: ML models that identify which leads are most likely to close",
+                        "Campaign Performance Analytics: Automatically track ROI across all marketing channels and optimize spend"
+                    ],
+                    tech: "Predictive Analytics + Machine Learning",
+                    impact: "Increase win rates by 25-40% through better targeting"
+                },
+                {
+                    dept: "Operations & Supply Chain",
+                    tasks: [
+                        "Demand Forecasting: Predict future product demand based on historical sales, seasonality, and market trends",
+                        "Supplier Performance Monitoring: Track delivery times, quality metrics, and flag at-risk vendors"
+                    ],
+                    tech: "Machine Learning + Predictive Analytics",
+                    impact: "Reduce stockouts by 60% and overstock by 35%"
+                }
+            ]
+        },
+        enhance_experience: {
+            title: "Customer Experience Automations",
+            opportunities: [
+                {
+                    dept: "Marketing & Sales",
+                    tasks: [
+                        "Personalized Email Content: AI generates customized product recommendations based on browsing history",
+                        "Dynamic Website Content: Show different homepage content based on visitor behavior and demographics"
+                    ],
+                    tech: "AI Personalization Engines",
+                    impact: "Increase engagement rates by 45-60%"
+                },
+                {
+                    dept: "Customer Support",
+                    tasks: [
+                        "Proactive Support: Automatically reach out when system detects user struggling with a feature",
+                        "Multi-Language Support: AI-powered real-time translation for global customer base"
+                    ],
+                    tech: "Conversational AI + NLP",
+                    impact: "Improve customer satisfaction scores by 35%"
+                },
+                {
+                    dept: "Operations & Supply Chain",
+                    tasks: [
+                        "Personalized Delivery Options: Offer AI-optimized delivery windows based on customer preferences",
+                        "Automated Returns Processing: Instant refund approval and return label generation"
+                    ],
+                    tech: "RPA + Machine Learning",
+                    impact: "Reduce customer effort score by 50%"
+                }
+            ]
         }
     };
 
-    async function simulateAIProcessing(selected) {
+    const techStack = {
+        "RPA": "Robotic Process Automation - Software bots that mimic human actions",
+        "OCR": "Optical Character Recognition - Extract text from images/PDFs",
+        "AI/ML": "Artificial Intelligence & Machine Learning - Systems that learn from data",
+        "NLP": "Natural Language Processing - Understanding human language",
+        "LLMs": "Large Language Models - Advanced conversational AI like ChatGPT"
+    };
+
+    async function generateAutomationPlan(selectedGoals) {
         return new Promise((resolve) => {
             let progress = 0;
             const interval = setInterval(() => {
-                progress += Math.random() * 15;
+                progress += Math.random() * 12;
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
                     
-                    // Generate comprehensive strategy
-                    let strategy = "STRATEGIC ROADMAP:\n\n";
+                    let htmlOutput = '';
                     
-                    selected.forEach((goal, idx) => {
-                        const plan = strategies[goal];
-                        strategy += `${idx + 1}. ${goal.toUpperCase()}\n\n`;
-                        plan.steps.forEach((step, stepIdx) => {
-                            strategy += `   ${String.fromCharCode(97 + stepIdx)}) ${step}\n`;
+                    // Header section
+                    htmlOutput += `<div class="mb-6 p-4 bg-slate-800 rounded-lg border border-emerald-500/30">
+                        <p class="text-sm"><strong class="text-emerald-400">Analysis Complete:</strong> Based on your selected goals, here are the automation opportunities that will deliver the highest impact.</p>
+                    </div>`;
+                    
+                    // Generate sections for each selected goal
+                    selectedGoals.forEach((goal, idx) => {
+                        const data = automationMap[goal];
+                        
+                        htmlOutput += `<div class="mb-8">
+                            <h4 class="text-lg font-bold text-cyan-400 mb-4 flex items-center">
+                                <span class="bg-cyan-500/20 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">${idx + 1}</span>
+                                ${data.title}
+                            </h4>`;
+                        
+                        data.opportunities.forEach(opp => {
+                            htmlOutput += `<div class="mb-5 ml-4 pl-4 border-l-2 border-slate-600">
+                                <h5 class="font-semibold text-emerald-300 mb-2">${opp.dept}</h5>
+                                <ul class="space-y-2 mb-3">`;
+                            
+                            opp.tasks.forEach(task => {
+                                htmlOutput += `<li class="text-sm text-slate-300">• ${task}</li>`;
+                            });
+                            
+                            htmlOutput += `</ul>
+                                <div class="flex flex-wrap gap-4 text-xs mt-3">
+                                    <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full">
+                                        ⚙️ ${opp.tech}
+                                    </span>
+                                    <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full">
+                                        📈 ${opp.impact}
+                                    </span>
+                                </div>
+                            </div>`;
                         });
-                        strategy += `\n   ${plan.roi}\n`;
-                        strategy += `   ${plan.timeframe}\n\n`;
+                        
+                        htmlOutput += `</div>`;
                     });
                     
-                    strategy += "NEXT STEPS:\n";
-                    strategy += "• Conduct stakeholder alignment sessions\n";
-                    strategy += "• Develop detailed technical specifications\n";
-                    strategy += "• Establish KPIs and success metrics\n";
-                    strategy += "• Create phased rollout timeline";
+                    // Technology Stack Explanation
+                    htmlOutput += `<div class="mt-8 p-5 bg-gradient-to-r from-slate-800 to-slate-700 rounded-lg border border-slate-600">
+                        <h4 class="font-bold text-cyan-400 mb-3 flex items-center">
+                            🔧 Technology Stack Overview
+                        </h4>
+                        <div class="grid grid-cols-1 gap-2 text-sm">`;
                     
-                    resolve(strategy);
+                    Object.entries(techStack).forEach(([tech, desc]) => {
+                        htmlOutput += `<div><strong class="text-emerald-400">${tech}:</strong> <span class="text-slate-300">${desc}</span></div>`;
+                    });
+                    
+                    htmlOutput += `</div></div>`;
+                    
+                    // Rule of 5
+                    htmlOutput += `<div class="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                        <h5 class="font-bold text-yellow-400 mb-2">💡 The Rule of 5</h5>
+                        <p class="text-sm text-slate-300">A task is a prime automation candidate if it:</p>
+                        <ul class="text-sm text-slate-300 mt-2 space-y-1 ml-4">
+                            <li>• Takes less than <strong>5 minutes</strong></li>
+                            <li>• Happens more than <strong>5 times per day</strong></li>
+                            <li>• Follows <strong>5 clear steps</strong></li>
+                        </ul>
+                    </div>`;
+                    
+                    resolve(htmlOutput);
                 }
                 progressBar.style.width = progress + "%";
                 
-                if (progress < 40) {
-                    statusText.innerText = "Analyzing business requirements...";
-                } else if (progress < 70) {
-                    statusText.innerText = "Generating optimization strategies...";
+                if (progress < 30) {
+                    statusText.innerText = "Analyzing your business goals...";
+                } else if (progress < 60) {
+                    statusText.innerText = "Mapping automation opportunities...";
+                } else if (progress < 90) {
+                    statusText.innerText = "Calculating ROI impact...";
                 } else {
-                    statusText.innerText = "Finalizing recommendations...";
+                    statusText.innerText = "Finalizing your roadmap...";
                 }
-            }, 150);
+            }, 120);
         });
     }
 
     window.generatePlan = async () => {
-        const selected = Array.from(document.querySelectorAll('input:checked')).map(c => c.value);
+        const checkboxes = document.querySelectorAll('.goal-checkbox:checked');
+        const selected = Array.from(checkboxes).map(cb => cb.value);
+        
         if (selected.length === 0) {
-            alert("Please select at least one goal.");
+            alert("Please select at least one business goal to continue.");
             return;
         }
         
@@ -142,19 +377,20 @@
         progressBar.style.width = "0%";
         
         try {
-            const result = await simulateAIProcessing(selected);
+            const result = await generateAutomationPlan(selected);
             
             progressBar.style.width = "100%";
-            statusText.innerText = "Strategy generated successfully!";
+            statusText.innerText = "Roadmap generated successfully!";
             
             setTimeout(() => {
                 resultBox.classList.remove('hidden');
-                aiOutput.innerText = result;
-            }, 300);
+                aiOutput.innerHTML = result;
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 400);
             
         } catch (err) {
             console.error("Error:", err);
-            alert("An error occurred. Please try again.");
+            alert("An error occurred generating your roadmap. Please try again.");
         } finally {
             btn.disabled = false;
         }
