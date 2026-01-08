@@ -51,61 +51,70 @@
     </div>
 
     <script type="module">
-        import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0';
+    import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0';
+    
+    // Force the library to NOT send local credentials/cookies which causes the 401
+    env.allowLocalModels = false;
+    env.useBrowserCache = true;
+
+    let generator = null;
+
+    const btn = document.getElementById('generate-btn');
+    const statusContainer = document.getElementById('status-container');
+    const progressBar = document.getElementById('progress-bar');
+    const statusText = document.getElementById('status-text');
+    const resultBox = document.getElementById('result-box');
+    const aiOutput = document.getElementById('ai-output');
+
+    window.generatePlan = async () => {
+        const selected = Array.from(document.querySelectorAll('input:checked')).map(c => c.value);
+        if (selected.length === 0) return alert("Please select at least one goal.");
+
+        btn.disabled = true;
+        statusContainer.classList.remove('hidden');
+        resultBox.classList.add('hidden');
         
-        env.allowLocalModels = false;
-        let generator = null;
-
-        const btn = document.getElementById('generate-btn');
-        const statusContainer = document.getElementById('status-container');
-        const progressBar = document.getElementById('progress-bar');
-        const statusText = document.getElementById('status-text');
-        const resultBox = document.getElementById('result-box');
-        const aiOutput = document.getElementById('ai-output');
-
-        window.generatePlan = async () => {
-            const selected = Array.from(document.querySelectorAll('input:checked')).map(c => c.value);
-            if (selected.length === 0) return alert("Please select at least one goal.");
-
-            btn.disabled = true;
-            statusContainer.classList.remove('hidden');
-            
-            try {
-                if (!generator) {
-                    statusText.innerText = "Downloading Model (~30MB)...";
-                    progressBar.style.width = "40%";
-                    
-                    generator = await pipeline('text-generation', 'onnx-community/SmolLM-135M-Instruct', {
-                        device: 'webgpu'
-                    });
-                }
-
-                progressBar.style.width = "70%";
-                statusText.innerText = "Analyzing Business Logic...";
-
-                const prompt = `<|user|>\nSuggest specific automation tools for: ${selected.join(", ")}. Be concise.<|assistant|>\n`;
+        try {
+            if (!generator) {
+                statusText.innerText = "Loading AI Model (Approx. 30MB)...";
+                progressBar.style.width = "30%";
                 
-                const result = await generator(prompt, { 
-                    max_new_tokens: 150,
-                    temperature: 0.7,
-                    do_sample: true
+                // Switching to a more reliably public model path
+                generator = await pipeline('text-generation', 'onnx-community/SmolLM-135M', {
+                    device: 'webgpu', // Fallback to CPU happens automatically if WebGPU fails
                 });
-
-                progressBar.style.width = "100%";
-                statusText.innerText = "Analysis Complete";
-                
-                resultBox.classList.remove('hidden');
-                aiOutput.innerText = result[0].generated_text.split('<|assistant|>')[1].trim();
-
-            } catch (err) {
-                console.error(err);
-                statusText.innerText = "Error loading model. Check console.";
-            } finally {
-                btn.disabled = false;
             }
-        };
 
-        btn.addEventListener('click', window.generatePlan);
-    </script>
+            progressBar.style.width = "70%";
+            statusText.innerText = "Generating Strategy...";
+
+            const prompt = `Task: Create an automation strategy. Goals: ${selected.join(", ")}. Strategy:`;
+            
+            const result = await generator(prompt, { 
+                max_new_tokens: 100,
+                temperature: 0.6,
+                do_sample: true,
+                repetition_penalty: 1.1
+            });
+
+            progressBar.style.width = "100%";
+            statusText.innerText = "Done!";
+            
+            resultBox.classList.remove('hidden');
+            // Clean up the output to remove the prompt
+            const generatedText = result[0].generated_text.replace(prompt, "").trim();
+            aiOutput.innerText = generatedText || "Automation plan generated successfully.";
+
+        } catch (err) {
+            console.error("Full Error Info:", err);
+            statusText.innerText = "Error: Model loading failed. Check console.";
+            alert("Error: " + err.message);
+        } finally {
+            btn.disabled = false;
+        }
+    };
+
+    btn.addEventListener('click', window.generatePlan);
+</script>
 </body>
 </html>
