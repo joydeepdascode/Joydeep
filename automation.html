@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Operations Strategist | Portfolio Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-2xl w-full bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-8">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                Edge AI Business Strategist
+            </h1>
+            <p class="text-slate-400 mt-2">Running a 135M Parameter LLM entirely in your browser.</p>
+        </header>
+
+        <div class="space-y-4 mb-8">
+            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                <input type="checkbox" value="Streamline Finance and Invoicing" class="w-4 h-4 text-emerald-500">
+                <span class="ml-3">Streamline Finance & Invoicing</span>
+            </label>
+            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                <input type="checkbox" value="Scale Customer Support with AI" class="w-4 h-4 text-emerald-500">
+                <span class="ml-3">Scale Customer Support</span>
+            </label>
+            <label class="block p-4 bg-slate-700/50 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-700 transition">
+                <input type="checkbox" value="Optimize Supply Chain Logistics" class="w-4 h-4 text-emerald-500">
+                <span class="ml-3">Optimize Supply Chain</span>
+            </label>
+        </div>
+
+        <button id="generate-btn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+            Generate Local AI Strategy
+        </button>
+
+        <div id="status-container" class="hidden mt-6">
+            <div class="w-full bg-slate-700 rounded-full h-2 mb-2">
+                <div id="progress-bar" class="bg-emerald-500 h-2 rounded-full w-0 transition-all duration-300"></div>
+            </div>
+            <p id="status-text" class="text-xs text-slate-400 text-center">Initializing Model...</p>
+        </div>
+
+        <div id="result-box" class="hidden mt-8 p-6 bg-slate-900 rounded-xl border-l-4 border-emerald-500">
+            <h3 class="text-emerald-400 font-bold mb-2 flex items-center">
+                <span class="mr-2">✨</span> Proposed Action Plan:
+            </h3>
+            <p id="ai-output" class="text-slate-300 italic leading-relaxed"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0';
+        
+        env.allowLocalModels = false;
+        let generator = null;
+
+        const btn = document.getElementById('generate-btn');
+        const statusContainer = document.getElementById('status-container');
+        const progressBar = document.getElementById('progress-bar');
+        const statusText = document.getElementById('status-text');
+        const resultBox = document.getElementById('result-box');
+        const aiOutput = document.getElementById('ai-output');
+
+        window.generatePlan = async () => {
+            const selected = Array.from(document.querySelectorAll('input:checked')).map(c => c.value);
+            if (selected.length === 0) return alert("Please select at least one goal.");
+
+            btn.disabled = true;
+            statusContainer.classList.remove('hidden');
+            
+            try {
+                if (!generator) {
+                    statusText.innerText = "Downloading Model (~30MB)...";
+                    progressBar.style.width = "40%";
+                    
+                    generator = await pipeline('text-generation', 'onnx-community/SmolLM-135M-Instruct', {
+                        device: 'webgpu'
+                    });
+                }
+
+                progressBar.style.width = "70%";
+                statusText.innerText = "Analyzing Business Logic...";
+
+                const prompt = `<|user|>\nSuggest specific automation tools for: ${selected.join(", ")}. Be concise.<|assistant|>\n`;
+                
+                const result = await generator(prompt, { 
+                    max_new_tokens: 150,
+                    temperature: 0.7,
+                    do_sample: true
+                });
+
+                progressBar.style.width = "100%";
+                statusText.innerText = "Analysis Complete";
+                
+                resultBox.classList.remove('hidden');
+                aiOutput.innerText = result[0].generated_text.split('<|assistant|>')[1].trim();
+
+            } catch (err) {
+                console.error(err);
+                statusText.innerText = "Error loading model. Check console.";
+            } finally {
+                btn.disabled = false;
+            }
+        };
+
+        btn.addEventListener('click', window.generatePlan);
+    </script>
+</body>
+</html>
