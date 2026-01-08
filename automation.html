@@ -53,12 +53,18 @@
     <script type="module">
     import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0';
     
-    // Force the library to NOT send local credentials/cookies which causes the 401
+    // CRITICAL FIX: These settings bypass the 401 Unauthorized errors
     env.allowLocalModels = false;
     env.useBrowserCache = true;
+    // This tells the browser not to send cookies/headers that trigger HF's 401
+    env.remote_file_config = {
+        fetch: {
+            cache: 'force-cache',
+            credentials: 'omit', 
+        }
+    };
 
     let generator = null;
-
     const btn = document.getElementById('generate-btn');
     const statusContainer = document.getElementById('status-container');
     const progressBar = document.getElementById('progress-bar');
@@ -76,39 +82,41 @@
         
         try {
             if (!generator) {
-                statusText.innerText = "Loading AI Model (Approx. 30MB)...";
-                progressBar.style.width = "30%";
+                statusText.innerText = "Downloading AI Model (Approx. 30MB)...";
+                progressBar.style.width = "40%";
                 
-                // Switching to a more reliably public model path
+                // Using the specific ONNX community version
                 generator = await pipeline('text-generation', 'onnx-community/SmolLM-135M', {
-                    device: 'webgpu', // Fallback to CPU happens automatically if WebGPU fails
+                    device: 'webgpu', // Uses your GPU for speed
                 });
             }
 
             progressBar.style.width = "70%";
-            statusText.innerText = "Generating Strategy...";
+            statusText.innerText = "AI is thinking...";
 
-            const prompt = `Task: Create an automation strategy. Goals: ${selected.join(", ")}. Strategy:`;
+            const prompt = `Strategy for ${selected.join(", ")}:`;
             
             const result = await generator(prompt, { 
-                max_new_tokens: 100,
-                temperature: 0.6,
-                do_sample: true,
-                repetition_penalty: 1.1
+                max_new_tokens: 60,
+                temperature: 0.5,
+                do_sample: true
             });
 
             progressBar.style.width = "100%";
-            statusText.innerText = "Done!";
+            statusText.innerText = "Success!";
             
             resultBox.classList.remove('hidden');
-            // Clean up the output to remove the prompt
-            const generatedText = result[0].generated_text.replace(prompt, "").trim();
-            aiOutput.innerText = generatedText || "Automation plan generated successfully.";
+            aiOutput.innerText = result[0].generated_text.trim();
 
         } catch (err) {
-            console.error("Full Error Info:", err);
-            statusText.innerText = "Error: Model loading failed. Check console.";
-            alert("Error: " + err.message);
+            console.error("Error Detail:", err);
+            statusText.innerText = "Model failed to load.";
+            // If it's still a 401, it's likely the local file restriction
+            if(window.location.protocol === 'file:') {
+                alert("Security Error: Browsers block AI downloads from local files. \n\nPlease upload this to GitHub Pages to see it work!");
+            } else {
+                alert("Error: " + err.message);
+            }
         } finally {
             btn.disabled = false;
         }
